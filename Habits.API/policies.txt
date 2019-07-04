@@ -1,0 +1,40 @@
+policies
+	- AmazonDynamoDBFullAccess
+	- AWSLambdaFullAccess
+	- CloudWatchFullAccess
+	- AWSCloudFormationReadOnlyAccess
+	
+inline policies
+CloudFormationCreateStack
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Stmt1449904348000",
+            "Effect": "Allow",
+            "Action": [
+                "cloudformation:CreateStack"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}
+
+CloudFormationUpdateStack
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Stmt1449904348000",
+            "Effect": "Allow",
+            "Action": [
+                "cloudformation:UpdateStack"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}
