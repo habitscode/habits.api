@@ -1,11 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Habits.Domain.Models\Habits.Domain.Models.csproj" />
+    <ProjectReference Include="..\Habits.Domain.Repositories\Habits.Domain.Repositories.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,7 +5,7 @@ using Habits.Domain.Models;
 
 namespace Habits.Domain.Services
 {
-    interface ITaskService : ICrudService<HTask>
+    public interface ITaskService : ICrudService<HTask>
     {
     }
 }

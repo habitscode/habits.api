@@ -5,7 +5,7 @@ using Habits.Domain.Models;
 
 namespace Habits.Domain.Repositories
 {
-    interface ITaskRepository : ICrudRepository<HTask>
+    public interface ITaskRepository : ICrudRepository<HTask>
     {
     }
 }

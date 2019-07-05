@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Habits.Domain.Services
 {
-    interface ICrudService<T>
+    public interface ICrudService<T>
     {
         T Get();
         List<T> GetAll();

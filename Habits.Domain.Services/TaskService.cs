@@ -2,14 +2,21 @@
 using System.Collections.Generic;
 using System.Text;
 using Habits.Domain.Models;
+using Habits.Domain.Repositories;
 
 namespace Habits.Domain.Services
 {
-    class TaskService : ITaskService
+    public class TaskService : ITaskService
     {
+        private readonly ITaskRepository _taskRepository;
+
+        public TaskService(ITaskRepository taskRepository) {
+            _taskRepository = taskRepository;
+        }
+
         public void Add(HTask item)
         {
-            throw new NotImplementedException();
+            _taskRepository.AddAsync(item);
         }
 
         public void Delete(HTask item)

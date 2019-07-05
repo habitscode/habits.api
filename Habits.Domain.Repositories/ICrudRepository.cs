@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Habits.Domain.Repositories
 {
-    interface ICrudRepository<T>
+    public interface ICrudRepository<T>
     {
         T Get(int id);
         Task AddAsync(T item);

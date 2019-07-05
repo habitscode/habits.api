@@ -1,4 +1,4 @@
-# Welcome to Serverless!
+﻿# Welcome to Serverless!
 #
 # This file is the main config file for your service.
 # It's very minimal at this point and uses default values.
@@ -58,6 +58,17 @@ functions:
     #  exclude:
     #    - exclude-me.js
     #    - exclude-me-dir/**
+
+  addTask:
+    handler: HabitsEngine::Habits.API.TaskHandler::AddTask
+
+    # you can add packaging information here
+    package:
+      artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
+    #  exclude:
+    #    - exclude-me.js
+    #    - exclude-me-dir/**
+
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

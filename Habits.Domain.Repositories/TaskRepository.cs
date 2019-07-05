@@ -8,7 +8,7 @@ using Habits.Domain.Models;
 
 namespace Habits.Domain.Repositories
 {
-    class TaskRepository : BaseRepository, ITaskRepository
+    public class TaskRepository : BaseRepository, ITaskRepository
     {
         public TaskRepository() : base() { }
         public TaskRepository(IAmazonDynamoDB client) : base(client) { }
@@ -18,7 +18,8 @@ namespace Habits.Domain.Repositories
             var request = new PutItemRequest() {
                 TableName = Constants.TaskTableName,
                 Item = new Dictionary<string, AttributeValue>() {
-                    { "TaskId", new AttributeValue(){ S = item.Guid } },
+                    { "ChallengeId", new AttributeValue(){ S = item.ChallengeId } },
+                    { "TaskId", new AttributeValue(){ S = item.TaskId } },
                     { "What", new AttributeValue(){ S = item.What } },
                     { "When", new AttributeValue(){ S = item.When.ToString() } },
                     { "Where", new AttributeValue(){ S = item.Where } },

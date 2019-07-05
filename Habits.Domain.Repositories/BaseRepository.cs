@@ -5,7 +5,7 @@ using Amazon.DynamoDBv2;
 
 namespace Habits.Domain.Repositories
 {
-    abstract class BaseRepository
+    public abstract class BaseRepository
     {
         protected readonly IAmazonDynamoDB _dbClient;
 
