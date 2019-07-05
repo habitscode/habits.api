@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Habits.Domain.Models;
 using Habits.Domain.Repositories;
 
@@ -14,9 +15,10 @@ namespace Habits.Domain.Services
             _taskRepository = taskRepository;
         }
 
-        public void Add(HTask item)
+        public async Task AddAsync(HTask item)
         {
-            _taskRepository.AddAsync(item);
+            item.TaskId = Guid.NewGuid().ToString();
+            await _taskRepository.AddAsync(item);
         }
 
         public void Delete(HTask item)

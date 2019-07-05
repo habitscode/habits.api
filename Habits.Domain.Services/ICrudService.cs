@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Habits.Domain.Services
 {
@@ -8,7 +9,7 @@ namespace Habits.Domain.Services
     {
         T Get();
         List<T> GetAll();
-        void Add(T item);
+        Task AddAsync(T item);
         void Update(T item);
         void Delete(T item);
     }

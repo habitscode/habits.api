@@ -23,7 +23,7 @@ namespace Habits.Domain.Repositories
                     { "What", new AttributeValue(){ S = item.What } },
                     { "When", new AttributeValue(){ S = item.When.ToString() } },
                     { "Where", new AttributeValue(){ S = item.Where } },
-                    { "Where", new AttributeValue(){ S = item.Status.ToString() } }
+                    { "Status", new AttributeValue(){ S = item.Status.ToString() } }
                 }
             };
 

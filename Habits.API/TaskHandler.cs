@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Net;
+using System.Threading.Tasks;
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using Habits.Domain.Models;
+using Habits.Domain.Repositories;
 using Habits.Domain.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -23,10 +25,11 @@ namespace Habits.API
 
         private void ConfigureServices(ServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<ITaskService, TaskService>();
+            serviceCollection.AddScoped<ITaskService, TaskService>();
+            serviceCollection.AddScoped<ITaskRepository, TaskRepository>();
         }
 
-        public APIGatewayProxyResponse AddTask(APIGatewayProxyRequest request) {
+        public async Task<APIGatewayProxyResponse> AddTask(APIGatewayProxyRequest request) {
             if (!validPayload(request.Body)) {
                 return new APIGatewayProxyResponse()
                 {
@@ -36,7 +39,7 @@ namespace Habits.API
             }
 
             HTask task = JsonConvert.DeserializeObject<HTask>(request.Body);
-            TaskService.Add(task);
+            await TaskService.AddAsync(task);
 
             return new APIGatewayProxyResponse()
             {
