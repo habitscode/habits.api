@@ -1,22 +1,22 @@
 ## All of this must be documented on Swagger, for now, this document is ok :D
 
-GET /api/teams Get all teams
-GET /api/teams/{teamId} Get team
-POST /api/teams Insert new team
-PUT /api/teams Update team
-DELETE /api/teams/{teamId} Delete team
+`GET /api/teams` [Get all teams]
+`GET /api/teams/{teamId}` [Get team]
+`POST /api/teams` [Insert new team]
+`PUT /api/teams` [Update team]
+`DELETE /api/teams/{teamId}` [Delete team]
 
-GET /api/teams/{teamId}/challenges Get all challenges by team
-GET /api/teams/{teamId}/challenges/{challengeId} Get challenge
-POST /api/teams/{teamId}/challenges Insert new challenge
-PUT /api/teams/{teamId}/challenges Update new challenge
-DELETE /api/teams/{teamId}/challenges/{challengeId} Delete challenge
+`GET /api/teams/{teamId}/challenges` [Get all challenges by team]
+`GET /api/teams/{teamId}/challenges/{challengeId}` [Get challenge]
+`POST /api/teams/{teamId}/challenges` [Insert new challenge]
+`PUT /api/teams/{teamId}/challenges` [Update new challenge]
+`DELETE /api/teams/{teamId}/challenges/{challengeId}` [Delete challenge]
 
-GET /api/challenges/{challengeId}/tasks Get all tasks by challenge
-GET /api/challenges/{challengeId}/tasks/{taskId} Get task
-POST /api/challenges/{challengeId}/tasks Insert new task
-PUT /api/challenges/{challengeId}/tasks Update new task
-DELETE /api/challenges/{challengeId}/tasks/{taskId} Delete task
+`GET /api/challenges/{challengeId}/tasks` [Get all tasks by challenge]
+`GET /api/challenges/{challengeId}/tasks/{taskId}` [Get task]
+`POST /api/challenges/{challengeId}/tasks` [Insert new task]
+`PUT /api/challenges/{challengeId}/tasks` [Update new task]
+`DELETE /api/challenges/{challengeId}/tasks/{taskId}` [Delete task]
 
 
 Service Information
