@@ -12,32 +12,16 @@ namespace Habits.Domain.Repositories
         public TeamRepository() : base() { }
         public TeamRepository(IAmazonDynamoDB client) : base(client) { }
 
-        public async Task AddAsync(Team item)
+        public async Task<List<Team>> GetAll()
         {
-            var request = new PutItemRequest()
+            var request = new ScanRequest()
             {
-                TableName = Constants.TeamTableName,
-                Item = new Dictionary<string, AttributeValue>() {
-                    { "TeamId", new AttributeValue(){ S = item.TeamId } },
-                    { "Name", new AttributeValue(){ S = item.Name } }
-                }
+                TableName = Constants.TeamTableName
             };
 
-            await _dbClient.PutItemAsync(request);
-        }
+            var result = await _dbClient.ScanAsync(request);
 
-        public async Task DeleteAsync(Team item)
-        {
-            var request = new DeleteItemRequest()
-            {
-                TableName = Constants.TeamTableName,
-                Key = new Dictionary<string, AttributeValue>()
-                {
-                    { "TeamId", new AttributeValue(){ S = item.TeamId } }
-                }
-            };
-
-            await _dbClient.DeleteItemAsync(request);
+            return GetItems(result.Items);
         }
 
         public async Task<Team> GetItem(String teamId)
@@ -59,6 +43,39 @@ namespace Habits.Domain.Repositories
                 return null;
         }
 
+        public async Task AddAsync(Team item)
+        {
+            var request = new PutItemRequest()
+            {
+                TableName = Constants.TeamTableName,
+                Item = new Dictionary<string, AttributeValue>() {
+                    { "TeamId", new AttributeValue(){ S = item.TeamId } },
+                    { "Name", new AttributeValue(){ S = item.Name } }
+                }
+            };
+
+            await _dbClient.PutItemAsync(request);
+        }
+
+        public Task UpdateAsync(Team item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task DeleteAsync(String teamId)
+        {
+            var request = new DeleteItemRequest()
+            {
+                TableName = Constants.TeamTableName,
+                Key = new Dictionary<string, AttributeValue>()
+                {
+                    { "TeamId", new AttributeValue(){ S = teamId } }
+                }
+            };
+
+            await _dbClient.DeleteItemAsync(request);
+        }
+
         private Team GetItem(Dictionary<string, AttributeValue> item)
         {
             var team = new Team()
@@ -70,34 +87,18 @@ namespace Habits.Domain.Repositories
             return team;
         }
 
-        public async Task<List<Team>> GetItems(String teamId)
+        private List<Team> GetItems(List<Dictionary<string, AttributeValue>> list)
         {
-            var request = new QueryRequest()
-            {
-                TableName = Constants.TeamTableName,
-                KeyConditionExpression = "TeamId = :teamId",
-                ExpressionAttributeValues = new Dictionary<string, AttributeValue>() {
-                    { ":teamId", new AttributeValue(){ S = teamId } }
-                }
-            };
-
-            var result = await _dbClient.QueryAsync(request);
-
-            if (result.Count > 0)
+            if (list.Count > 0)
             {
                 var items = new List<Team>();
-                foreach (var item in result.Items)
+                foreach (var item in list)
                 {
                     items.Add(GetItem(item));
                 }
                 return items;
             }
             else return null;
-        }
-
-        public Task UpdateAsync(Team item)
-        {
-            throw new NotImplementedException();
         }
     }
 }

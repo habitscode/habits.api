@@ -1,0 +1,376 @@
+{
+	"info": {
+		"_postman_id": "04633f73-114e-4ad1-809a-48df6b6aeed1",
+		"name": "Habits",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Teams",
+			"item": [
+				{
+					"name": "Get teams",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/teams",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"teams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get team",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/teams/eda1df41-a346-48dc-81ea-1f3288fcd58a",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"teams",
+								"eda1df41-a346-48dc-81ea-1f3288fcd58a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add team",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Name\": \"New team\"\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/teams",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"teams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete team",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/teams/78934280-8247-409a-a5a9-4cfd2f74c7b4",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"teams",
+								"78934280-8247-409a-a5a9-4cfd2f74c7b4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Challenges",
+			"item": [
+				{
+					"name": "Get challenges",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/teams/eda1df41-a346-48dc-81ea-1f3288fcd58a/challenges",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"teams",
+								"eda1df41-a346-48dc-81ea-1f3288fcd58a",
+								"challenges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get challenge",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/teams/eda1df41-a346-48dc-81ea-1f3288fcd58a/challenges/6c65f3dd-70a1-4821-ad7d-b9fdfd7e39c0",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"teams",
+								"eda1df41-a346-48dc-81ea-1f3288fcd58a",
+								"challenges",
+								"6c65f3dd-70a1-4821-ad7d-b9fdfd7e39c0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add challenge",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Name\": \"Other challenge\",\n\t\"Status\": \"Open\",\n\t\"StartDate\": \"08/07/2019\",\n\t\"EndDate\": \"08/07/2019\"\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/teams/eda1df41-a346-48dc-81ea-1f3288fcd58a/challenges",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"teams",
+								"eda1df41-a346-48dc-81ea-1f3288fcd58a",
+								"challenges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete challenge",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/teams/eda1df41-a346-48dc-81ea-1f3288fcd58a/challenges/6c65f3dd-70a1-4821-ad7d-b9fdfd7e39c0",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"teams",
+								"eda1df41-a346-48dc-81ea-1f3288fcd58a",
+								"challenges",
+								"6c65f3dd-70a1-4821-ad7d-b9fdfd7e39c0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "Get tasks",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/challenges/bfb2f348-55c2-4d29-a52d-c73bbb343ee4/tasks",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"challenges",
+								"bfb2f348-55c2-4d29-a52d-c73bbb343ee4",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get task",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/challenges/bfb2f348-55c2-4d29-a52d-c73bbb343ee4/tasks/6ce8f817-0ad5-4218-87a0-b2df994bbc1f",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"challenges",
+								"bfb2f348-55c2-4d29-a52d-c73bbb343ee4",
+								"tasks",
+								"6ce8f817-0ad5-4218-87a0-b2df994bbc1f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add task",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"What\": \"Another task\",\n\t\"When\": \"08/07/2019\",\n\t\"Where\": \"Somewhere\",\n\t\"Status\": \"Open\",\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/challenges/bfb2f348-55c2-4d29-a52d-c73bbb343ee4/tasks",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"challenges",
+								"bfb2f348-55c2-4d29-a52d-c73bbb343ee4",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete task",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/challenges/bfb2f348-55c2-4d29-a52d-c73bbb343ee4/tasks/6ce8f817-0ad5-4218-87a0-b2df994bbc1f",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"challenges",
+								"bfb2f348-55c2-4d29-a52d-c73bbb343ee4",
+								"tasks",
+								"6ce8f817-0ad5-4218-87a0-b2df994bbc1f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "bc4cce33-7588-4f55-924d-bab6f64e1634",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c6350085-4c05-4fd8-8257-b396dbce113a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "8614d656-2c0a-4775-b4c9-00831085508c",
+			"key": "api_url",
+			"value": "https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api",
+			"type": "string"
+		}
+	]
+}

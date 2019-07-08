@@ -15,16 +15,10 @@ namespace Habits.Domain.Services
             _teamRepository = teamRepository;
         }
 
-
-        public async Task AddAsync(Team item)
+        public async Task<List<Team>> GetAll()
         {
-            item.TeamId = Guid.NewGuid().ToString();
-            await _teamRepository.AddAsync(item);
-        }
-
-        public Task DeleteAsync(Team item)
-        {
-            throw new NotImplementedException();
+            var result = await _teamRepository.GetAll();
+            return result;
         }
 
         public async Task<Team> GetItem(String teamId)
@@ -33,15 +27,20 @@ namespace Habits.Domain.Services
             return result;
         }
 
-        public async Task<List<Team>> GetItems(String teamId)
+        public async Task AddAsync(Team item)
         {
-            var result = await _teamRepository.GetItems(teamId);
-            return result;
+            item.TeamId = Guid.NewGuid().ToString();
+            await _teamRepository.AddAsync(item);
         }
 
         public Task UpdateAsync(Team item)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task DeleteAsync(String teamId)
+        {
+            await _teamRepository.DeleteAsync(teamId);
         }
     }
 }

@@ -15,32 +15,32 @@ namespace Habits.Domain.Services
             _challengeRepository = challengeRepository;
         }
 
-        public async Task AddAsync(Challenge item)
-        {
-            item.ChallengeId = Guid.NewGuid().ToString();
-            await _challengeRepository.AddAsync(item);
-        }
-
-        public async Task DeleteAsync(Challenge item)
-        {
-            await _challengeRepository.DeleteAsync(item);
-        }
-
-        public async Task<Challenge> GetItem(String challengeId)
-        {
-            var result = await _challengeRepository.GetItem(challengeId);
-            return result;
-        }
-
         public async Task<List<Challenge>> GetItems(String teamId)
         {
             var result = await _challengeRepository.GetItems(teamId);
             return result;
         }
 
+        public async Task<Challenge> GetItem(string teamId, string challengeId)
+        {
+            var result = await _challengeRepository.GetItem(teamId, challengeId);
+            return result;
+        }
+
+        public async Task AddAsync(Challenge item)
+        {
+            item.ChallengeId = Guid.NewGuid().ToString();
+            await _challengeRepository.AddAsync(item);
+        }
+
         public Task UpdateAsync(Challenge item)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task DeleteAsync(string teamId, string challengeId)
+        {
+            await _challengeRepository.DeleteAsync(teamId, challengeId);
         }
     }
 }

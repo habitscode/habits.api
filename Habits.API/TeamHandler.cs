@@ -1,12 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Amazon.Lambda.APIGatewayEvents;
+using Amazon.Lambda.Core;
 using Habits.Domain.Models;
 using Habits.Domain.Repositories;
 using Habits.Domain.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+
+[assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
 
 namespace Habits.API
 {
@@ -26,6 +30,54 @@ namespace Habits.API
         {
             serviceCollection.AddScoped<ITeamService, TeamService>();
             serviceCollection.AddScoped<ITeamRepository, TeamRepository>();
+        }
+
+        public async Task<APIGatewayProxyResponse> GetAll(APIGatewayProxyRequest request) {
+            if (!validPayload(request.Body)) {
+                return new APIGatewayProxyResponse()
+                {
+                    StatusCode = (int)HttpStatusCode.BadRequest,
+                    Body = "Invalid payload, please use payload valid"
+                };
+            }
+
+            var items = await ITeamService.GetAll();
+            return new APIGatewayProxyResponse()
+            {
+                StatusCode = (int)HttpStatusCode.OK,
+                Body = JsonConvert.SerializeObject(items, JsonSerializerConfig.settings),
+                Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
+            };
+        }
+
+        public async Task<APIGatewayProxyResponse> Get(APIGatewayProxyRequest request)
+        {
+            if (!validPayload(request.Body))
+            {
+                return new APIGatewayProxyResponse()
+                {
+                    StatusCode = (int)HttpStatusCode.BadRequest,
+                    Body = "Invalid payload, please use payload valid"
+                };
+            }
+
+            if (request.PathParameters == null || !request.PathParameters.TryGetValue("teamId", out string teamId))
+            {
+                return new APIGatewayProxyResponse()
+                {
+                    StatusCode = (int)HttpStatusCode.BadRequest,
+                    Body = "Invalid query string, please add teamId"
+                };
+            }
+
+            var item = await ITeamService.GetItem(teamId);
+
+            return new APIGatewayProxyResponse()
+            {
+                StatusCode = (int)HttpStatusCode.OK,
+                Body = JsonConvert.SerializeObject(item, JsonSerializerConfig.settings),
+                Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
+            };
         }
 
         public async Task<APIGatewayProxyResponse> Add(APIGatewayProxyRequest request)
@@ -49,27 +101,6 @@ namespace Habits.API
             };
         }
 
-        public async Task<APIGatewayProxyResponse> Get(APIGatewayProxyRequest request) {
-            if (!validPayload(request.Body))
-            {
-                return new APIGatewayProxyResponse()
-                {
-                    StatusCode = (int)HttpStatusCode.BadRequest,
-                    Body = "Invalid payload, please use payload valid"
-                };
-            }
-
-            var team = JsonConvert.DeserializeObject<Team>(request.Body);
-            var item = await ITeamService.GetItem(team.TeamId);
-
-            return new APIGatewayProxyResponse()
-            {
-                StatusCode = (int)HttpStatusCode.OK,
-                Body = JsonConvert.SerializeObject(item),
-                Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
-            };
-        }
-
         public async Task<APIGatewayProxyResponse> Delete(APIGatewayProxyRequest request) {
             if (!validPayload(request.Body))
             {
@@ -80,8 +111,18 @@ namespace Habits.API
                 };
             }
 
-            var team = JsonConvert.DeserializeObject<Team>(request.Body);
-            await ITeamService.DeleteAsync(team);
+            string teamId;
+
+            if (request.PathParameters == null || !request.PathParameters.TryGetValue("teamId", out teamId))
+            {
+                return new APIGatewayProxyResponse()
+                {
+                    StatusCode = (int)HttpStatusCode.BadRequest,
+                    Body = "Invalid query string, please add teamId"
+                };
+            }
+
+            await ITeamService.DeleteAsync(teamId);
 
             return new APIGatewayProxyResponse()
             {

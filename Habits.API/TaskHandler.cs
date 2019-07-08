@@ -27,8 +27,10 @@ namespace Habits.API
             serviceCollection.AddScoped<ITaskRepository, TaskRepository>();
         }
 
-        public async Task<APIGatewayProxyResponse> Add(APIGatewayProxyRequest request) {
-            if (!validPayload(request.Body)) {
+        public async Task<APIGatewayProxyResponse> GetAll(APIGatewayProxyRequest request)
+        {
+            if (!validPayload(request.Body))
+            {
                 return new APIGatewayProxyResponse()
                 {
                     StatusCode = (int)HttpStatusCode.BadRequest,
@@ -36,15 +38,23 @@ namespace Habits.API
                 };
             }
 
-            HTask task = JsonConvert.DeserializeObject<HTask>(request.Body);
-            await ITaskService.AddAsync(task);
+            if (request.PathParameters == null || !request.PathParameters.TryGetValue("challengeId", out string challengeId))
+            {
+                return new APIGatewayProxyResponse()
+                {
+                    StatusCode = (int)HttpStatusCode.BadRequest,
+                    Body = "Invalid query string, please add challengeId"
+                };
+            }
+
+            var items = await ITaskService.GetItems(challengeId);
 
             return new APIGatewayProxyResponse()
             {
                 StatusCode = (int)HttpStatusCode.OK,
-                Body = "Task was saved successfully"
+                Body = JsonConvert.SerializeObject(items, JsonSerializerConfig.settings),
+                Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
             };
-
         }
 
         public async Task<APIGatewayProxyResponse> Get(APIGatewayProxyRequest request)
@@ -58,14 +68,60 @@ namespace Habits.API
                 };
             }
 
-            var team = JsonConvert.DeserializeObject<Team>(request.Body);
-            var item = await ITaskService.GetItem(team.TeamId);
+            if (request.PathParameters == null || !request.PathParameters.TryGetValue("challengeId", out string challengeId))
+            {
+                return new APIGatewayProxyResponse()
+                {
+                    StatusCode = (int)HttpStatusCode.BadRequest,
+                    Body = "Invalid query string, please add challengeId"
+                };
+            }
+
+            if (!request.PathParameters.TryGetValue("taskId", out string taskId))
+            {
+                return new APIGatewayProxyResponse()
+                {
+                    StatusCode = (int)HttpStatusCode.BadRequest,
+                    Body = "Invalid query string, please add taskId"
+                };
+            }
+
+            var item = await ITaskService.GetItem(challengeId, taskId);
 
             return new APIGatewayProxyResponse()
             {
                 StatusCode = (int)HttpStatusCode.OK,
-                Body = JsonConvert.SerializeObject(item),
+                Body = JsonConvert.SerializeObject(item, JsonSerializerConfig.settings),
                 Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
+            };
+        }
+
+        public async Task<APIGatewayProxyResponse> Add(APIGatewayProxyRequest request) {
+            if (!validPayload(request.Body)) {
+                return new APIGatewayProxyResponse()
+                {
+                    StatusCode = (int)HttpStatusCode.BadRequest,
+                    Body = "Invalid payload, please use payload valid"
+                };
+            }
+
+            if (request.PathParameters == null || !request.PathParameters.TryGetValue("challengeId", out string challengeId))
+            {
+                return new APIGatewayProxyResponse()
+                {
+                    StatusCode = (int)HttpStatusCode.BadRequest,
+                    Body = "Invalid query string, please add challengeId"
+                };
+            }
+
+            var task = JsonConvert.DeserializeObject<HTask>(request.Body);
+            task.ChallengeId = challengeId;
+            await ITaskService.AddAsync(task);
+
+            return new APIGatewayProxyResponse()
+            {
+                StatusCode = (int)HttpStatusCode.OK,
+                Body = "Task was saved successfully"
             };
         }
 
@@ -80,8 +136,25 @@ namespace Habits.API
                 };
             }
 
-            var task = JsonConvert.DeserializeObject<HTask>(request.Body);
-            await ITaskService.DeleteAsync(task);
+            if (request.PathParameters == null || !request.PathParameters.TryGetValue("challengeId", out string challengeId))
+            {
+                return new APIGatewayProxyResponse()
+                {
+                    StatusCode = (int)HttpStatusCode.BadRequest,
+                    Body = "Invalid query string, please add challengeId"
+                };
+            }
+
+            if (!request.PathParameters.TryGetValue("taskId", out string taskId))
+            {
+                return new APIGatewayProxyResponse()
+                {
+                    StatusCode = (int)HttpStatusCode.BadRequest,
+                    Body = "Invalid query string, please add taskId"
+                };
+            }
+
+            await ITaskService.DeleteAsync(challengeId, taskId);
 
             return new APIGatewayProxyResponse()
             {
