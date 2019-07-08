@@ -10,44 +10,25 @@ using Newtonsoft.Json;
 
 namespace Habits.API
 {
-    public class TaskHandler
+    public class TeamHandler
     {
-        private ITaskService ITaskService { get; }
+        private ITeamService ITeamService { get; }
 
-        public TaskHandler() {
+        public TeamHandler()
+        {
             var serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            ITaskService = serviceProvider.GetService<ITaskService>();
+            ITeamService = serviceProvider.GetService<ITeamService>();
         }
 
         private void ConfigureServices(ServiceCollection serviceCollection)
         {
-            serviceCollection.AddScoped<ITaskService, TaskService>();
-            serviceCollection.AddScoped<ITaskRepository, TaskRepository>();
+            serviceCollection.AddScoped<ITeamService, TeamService>();
+            serviceCollection.AddScoped<ITeamRepository, TeamRepository>();
         }
 
-        public async Task<APIGatewayProxyResponse> Add(APIGatewayProxyRequest request) {
-            if (!validPayload(request.Body)) {
-                return new APIGatewayProxyResponse()
-                {
-                    StatusCode = (int)HttpStatusCode.BadRequest,
-                    Body = "Invalid payload, please use payload valid"
-                };
-            }
-
-            HTask task = JsonConvert.DeserializeObject<HTask>(request.Body);
-            await ITaskService.AddAsync(task);
-
-            return new APIGatewayProxyResponse()
-            {
-                StatusCode = (int)HttpStatusCode.OK,
-                Body = "Task was saved successfully"
-            };
-
-        }
-
-        public async Task<APIGatewayProxyResponse> Get(APIGatewayProxyRequest request)
+        public async Task<APIGatewayProxyResponse> Add(APIGatewayProxyRequest request)
         {
             if (!validPayload(request.Body))
             {
@@ -59,18 +40,16 @@ namespace Habits.API
             }
 
             var team = JsonConvert.DeserializeObject<Team>(request.Body);
-            var item = await ITaskService.GetItem(team.TeamId);
+            await ITeamService.AddAsync(team);
 
             return new APIGatewayProxyResponse()
             {
                 StatusCode = (int)HttpStatusCode.OK,
-                Body = JsonConvert.SerializeObject(item),
-                Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
+                Body = "Team was saved successfully"
             };
         }
 
-        public async Task<APIGatewayProxyResponse> Delete(APIGatewayProxyRequest request)
-        {
+        public async Task<APIGatewayProxyResponse> Get(APIGatewayProxyRequest request) {
             if (!validPayload(request.Body))
             {
                 return new APIGatewayProxyResponse()
@@ -80,13 +59,34 @@ namespace Habits.API
                 };
             }
 
-            var task = JsonConvert.DeserializeObject<HTask>(request.Body);
-            await ITaskService.DeleteAsync(task);
+            var team = JsonConvert.DeserializeObject<Team>(request.Body);
+            var item = await ITeamService.GetItem(team.TeamId);
 
             return new APIGatewayProxyResponse()
             {
                 StatusCode = (int)HttpStatusCode.OK,
-                Body = "Task was deleted successfully"
+                Body = JsonConvert.SerializeObject(item),
+                Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
+            };
+        }
+
+        public async Task<APIGatewayProxyResponse> Delete(APIGatewayProxyRequest request) {
+            if (!validPayload(request.Body))
+            {
+                return new APIGatewayProxyResponse()
+                {
+                    StatusCode = (int)HttpStatusCode.BadRequest,
+                    Body = "Invalid payload, please use payload valid"
+                };
+            }
+
+            var team = JsonConvert.DeserializeObject<Team>(request.Body);
+            await ITeamService.DeleteAsync(team);
+
+            return new APIGatewayProxyResponse()
+            {
+                StatusCode = (int)HttpStatusCode.OK,
+                Body = "Team was deleted successfully"
             };
         }
 

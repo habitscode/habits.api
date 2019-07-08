@@ -5,6 +5,8 @@ namespace Habits.Domain.Models
 {
     public class Challenge
     {
+        public string TeamId { get; set; }
+        public string ChallengeId { get; set; }
         public string Name { get; set; }
         public List<HTask> Tasks { get; set; }
         public Status Status { get; set; }

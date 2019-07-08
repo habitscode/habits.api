@@ -2,7 +2,7 @@
 
 namespace Habits.Domain.Repositories
 {
-    public interface ITaskRepository : ICrudRepository<HTask>
+    public interface IChallengeRepository : ICrudRepository<Challenge>
     {
     }
 }

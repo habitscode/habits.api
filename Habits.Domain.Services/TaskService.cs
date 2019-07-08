@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Habits.Domain.Models;
 using Habits.Domain.Repositories;
@@ -21,22 +20,24 @@ namespace Habits.Domain.Services
             await _taskRepository.AddAsync(item);
         }
 
-        public void Delete(HTask item)
+        public async Task<HTask> GetItem(String taskId)
         {
-            throw new NotImplementedException();
+            var result = await _taskRepository.GetItem(taskId);
+            return result;
         }
 
-        public HTask Get()
+        public async Task<List<HTask>> GetItems(String challengeId)
         {
-            throw new NotImplementedException();
+            var result = await _taskRepository.GetItems(challengeId);
+            return result;
         }
 
-        public List<HTask> GetAll()
+        public async Task DeleteAsync(HTask item)
         {
-            throw new NotImplementedException();
+            await _taskRepository.DeleteAsync(item);
         }
 
-        public void Update(HTask item)
+        Task ICrudService<HTask>.UpdateAsync(HTask item)
         {
             throw new NotImplementedException();
         }

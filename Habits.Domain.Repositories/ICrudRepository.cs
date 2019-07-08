@@ -7,9 +7,10 @@ namespace Habits.Domain.Repositories
 {
     public interface ICrudRepository<T>
     {
-        T Get(int id);
         Task AddAsync(T item);
-        void Delete(T item);
-        void Update(T item);
+        Task DeleteAsync(T item);
+        Task<T> GetItem(String id);
+        Task<List<T>> GetItems(String id);
+        Task UpdateAsync(T item);
     }
 }

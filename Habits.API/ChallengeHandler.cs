@@ -10,44 +10,25 @@ using Newtonsoft.Json;
 
 namespace Habits.API
 {
-    public class TaskHandler
+    public class ChallengeHandler
     {
-        private ITaskService ITaskService { get; }
+        private IChallengeService IChallengeService { get; }
 
-        public TaskHandler() {
+        public ChallengeHandler()
+        {
             var serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            ITaskService = serviceProvider.GetService<ITaskService>();
+            IChallengeService = serviceProvider.GetService<IChallengeService>();
         }
 
         private void ConfigureServices(ServiceCollection serviceCollection)
         {
-            serviceCollection.AddScoped<ITaskService, TaskService>();
-            serviceCollection.AddScoped<ITaskRepository, TaskRepository>();
+            serviceCollection.AddScoped<IChallengeService, ChallengeService>();
+            serviceCollection.AddScoped<IChallengeRepository, ChallengeRepository>();
         }
 
-        public async Task<APIGatewayProxyResponse> Add(APIGatewayProxyRequest request) {
-            if (!validPayload(request.Body)) {
-                return new APIGatewayProxyResponse()
-                {
-                    StatusCode = (int)HttpStatusCode.BadRequest,
-                    Body = "Invalid payload, please use payload valid"
-                };
-            }
-
-            HTask task = JsonConvert.DeserializeObject<HTask>(request.Body);
-            await ITaskService.AddAsync(task);
-
-            return new APIGatewayProxyResponse()
-            {
-                StatusCode = (int)HttpStatusCode.OK,
-                Body = "Task was saved successfully"
-            };
-
-        }
-
-        public async Task<APIGatewayProxyResponse> Get(APIGatewayProxyRequest request)
+        public async Task<APIGatewayProxyResponse> Add(APIGatewayProxyRequest request)
         {
             if (!validPayload(request.Body))
             {
@@ -58,8 +39,28 @@ namespace Habits.API
                 };
             }
 
-            var team = JsonConvert.DeserializeObject<Team>(request.Body);
-            var item = await ITaskService.GetItem(team.TeamId);
+            var challenge = JsonConvert.DeserializeObject<Challenge>(request.Body);
+            await IChallengeService.AddAsync(challenge);
+
+            return new APIGatewayProxyResponse()
+            {
+                StatusCode = (int)HttpStatusCode.OK,
+                Body = "Challenge was saved successfully"
+            };
+        }
+
+        public async Task<APIGatewayProxyResponse> Get(APIGatewayProxyRequest request) {
+            if (!validPayload(request.Body))
+            {
+                return new APIGatewayProxyResponse()
+                {
+                    StatusCode = (int)HttpStatusCode.BadRequest,
+                    Body = "Invalid payload, please use payload valid"
+                };
+            }
+
+            var challenge = JsonConvert.DeserializeObject<Challenge>(request.Body);
+            var item = await IChallengeService.GetItem(challenge.ChallengeId);
 
             return new APIGatewayProxyResponse()
             {
@@ -69,8 +70,7 @@ namespace Habits.API
             };
         }
 
-        public async Task<APIGatewayProxyResponse> Delete(APIGatewayProxyRequest request)
-        {
+        public async Task<APIGatewayProxyResponse> Delete(APIGatewayProxyRequest request) {
             if (!validPayload(request.Body))
             {
                 return new APIGatewayProxyResponse()
@@ -80,13 +80,13 @@ namespace Habits.API
                 };
             }
 
-            var task = JsonConvert.DeserializeObject<HTask>(request.Body);
-            await ITaskService.DeleteAsync(task);
+            var challenge = JsonConvert.DeserializeObject<Challenge>(request.Body);
+            await IChallengeService.DeleteAsync(challenge);
 
             return new APIGatewayProxyResponse()
             {
                 StatusCode = (int)HttpStatusCode.OK,
-                Body = "Task was deleted successfully"
+                Body = "Challenge was deleted successfully"
             };
         }
 

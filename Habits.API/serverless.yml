@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: habits-api # NOTE: update this with your service name
+service: habits-api
 #app: your-app-name
 #tenant: your-tenant-name
 
@@ -30,34 +30,82 @@ provider:
         - "dynamodb:*"
       Resource: "*"
 
-# you can define service wide environment variables here
-#  environment:
-#    variable1: value1
-
 package:
   individually: true
 
 functions:
-  hello:
-    handler: HabitsEngine::Habits.API.Handler::Hello
-
-    # you can add packaging information here
+  post-team:
+    handler: HabitsEngine::Habits.API.TeamHandler::Add
     package:
       artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
-    #  exclude:
-    #    - exclude-me.js
-    #    - exclude-me-dir/**
-
-  addTask:
-    handler: HabitsEngine::Habits.API.TaskHandler::AddTask
-
-    # you can add packaging information here
+    events:
+      - http:
+          path: team
+          method: post
+  delete-team:
+    handler: HabitsEngine::Habits.API.TeamHandler::Delete
     package:
       artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
-    #  exclude:
-    #    - exclude-me.js
-    #    - exclude-me-dir/**
-
+    events:
+      - http:
+          path: team
+          method: delete
+  get-team:
+    handler: HabitsEngine::Habits.API.TeamHandler::Get
+    package:
+      artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
+    events:
+      - http:
+          path: team
+          method: get
+  post-challenge:
+    handler: HabitsEngine::Habits.API.ChallengeHandler::Add
+    package:
+      artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
+    events:
+      - http:
+          path: challenge
+          method: post
+  delete-challenge:
+    handler: HabitsEngine::Habits.API.ChallengeHandler::Delete
+    package:
+      artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
+    events:
+      - http:
+          path: challenge
+          method: delete
+  get-challenge:
+    handler: HabitsEngine::Habits.API.ChallengeHandler::Get
+    package:
+      artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
+    events:
+      - http:
+          path: challenge
+          method: get
+  post-task:
+    handler: HabitsEngine::Habits.API.TaskHandler::Add
+    package:
+      artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
+    events:
+      - http:
+          path: task
+          method: post
+  delete-task:
+    handler: HabitsEngine::Habits.API.TaskHandler::Delete
+    package:
+      artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
+    events:
+      - http:
+          path: task
+          method: delete
+  get-task:
+    handler: HabitsEngine::Habits.API.TaskHandler::Get
+    package:
+      artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
+    events:
+      - http:
+          path: task
+          method: get
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

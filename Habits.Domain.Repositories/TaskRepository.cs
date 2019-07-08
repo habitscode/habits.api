@@ -30,17 +30,79 @@ namespace Habits.Domain.Repositories
             await _dbClient.PutItemAsync(request);
         }
 
-        public void Delete(HTask item)
+        public async Task DeleteAsync(HTask item)
         {
-            throw new NotImplementedException();
+            var request = new DeleteItemRequest()
+            {
+                TableName = Constants.TaskTableName,
+                Key = new Dictionary<string, AttributeValue>()
+                {
+                    { "ChallengeId", new AttributeValue(){ S = item.ChallengeId } },
+                    { "TaskId", new AttributeValue(){ S = item.TaskId } }
+                }
+            };
+
+            await _dbClient.DeleteItemAsync(request);
         }
 
-        public HTask Get(int id)
+        private HTask GetItem(Dictionary<string, AttributeValue> item)
         {
-            throw new NotImplementedException();
+            var task = new HTask()
+            {
+                ChallengeId = item["ChallengeId"].S,
+                TaskId = item["TaskId"].S,
+                Status = (Status)Enum.Parse(typeof(Status), item["Status"].S),
+                What = item["What"].S,
+                Where = item["Where"].S,
+                When = Convert.ToDateTime(item["When"].S)
+            };
+
+            return task;
         }
 
-        public void Update(HTask item)
+        public async Task<HTask> GetItem(String taskId)
+        {
+            var request = new QueryRequest()
+            {
+                TableName = Constants.TaskTableName,
+                KeyConditionExpression = "TaskId = :taskId",
+                ExpressionAttributeValues = new Dictionary<string, AttributeValue>() {
+                    { ":taskId", new AttributeValue(){ S = taskId } }
+                }
+            };
+
+            var result = await _dbClient.QueryAsync(request);
+
+            if (result.Count > 0)
+                return GetItem(result.Items[0]);
+            else
+                return null;
+        }
+
+        public async Task<List<HTask>> GetItems(String challengeId) {
+            var request = new QueryRequest()
+            {
+                TableName = Constants.TaskTableName,
+                KeyConditionExpression = "ChallengeId = :challengeId",
+                ExpressionAttributeValues = new Dictionary<string, AttributeValue>() {
+                    { ":challengeId", new AttributeValue(){ S = challengeId } }
+                }
+            };
+
+            var result = await _dbClient.QueryAsync(request);
+
+            if (result.Count > 0) {
+                var items = new List<HTask>();
+                foreach (var item in result.Items) {
+                    items.Add(GetItem(item));
+                }
+                return items;
+            } else return null;
+        }
+
+
+
+        public Task UpdateAsync(HTask item)
         {
             throw new NotImplementedException();
         }

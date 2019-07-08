@@ -2,7 +2,7 @@
 
 namespace Habits.Domain.Services
 {
-    public interface ITaskService : ICrudService<HTask>
+    public interface IChallengeService : ICrudService<Challenge>
     {
     }
 }

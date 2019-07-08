@@ -7,10 +7,10 @@ namespace Habits.Domain.Services
 {
     public interface ICrudService<T>
     {
-        T Get();
-        List<T> GetAll();
+        Task<T> GetItem(String id);
+        Task<List<T>> GetItems(String id);
         Task AddAsync(T item);
-        void Update(T item);
-        void Delete(T item);
+        Task UpdateAsync(T item);
+        Task DeleteAsync(T item);
     }
 }
