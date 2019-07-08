@@ -1,4 +1,4 @@
-## All of this must be documented on Swagger, for now, this document is ok :D
+## API Definition
 
 * `GET /api/teams` [Get all teams]
 * `GET /api/teams/{teamId}` [Get team]
@@ -19,45 +19,45 @@
 * `DELETE /api/challenges/{challengeId}/tasks/{taskId}` [Delete task]
 
 
-Service Information
-service: habits-api
-stage: dev
-region: us-west-2
-stack: habits-api-dev
-resources: 88
-api keys:
-  None
-endpoints:
-  GET - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/teams
-  GET - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/teams/{teamId}
-  POST - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/teams
-  PUT - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/teams
-  DELETE - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/teams/{teamId}
+Service Information<br />
+service: habits-api<br />
+stage: dev<br />
+region: us-west-2<br />
+stack: habits-api-dev<br />
+resources: 88<br />
+api keys:<br />
+  None<br />
+endpoints:<br />
+  GET - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/teams<br />
+  GET - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/teams/{teamId}<br />
+  POST - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/teams<br />
+  PUT - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/teams<br />
+  DELETE - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/teams/{teamId}<br />
   
-  GET - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/teams/{teamId}/challenges
-  GET - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/teams/{teamId}/challenges/{challengeId}
-  POST - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/teams/{teamId}/challenges
-  PUT - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/teams/{teamId}/challenges
-  DELETE - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/teams/{teamId}/challenges/{challengeId}
+  GET - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/teams/{teamId}/challenges<br />
+  GET - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/teams/{teamId}/challenges/{challengeId}<br />
+  POST - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/teams/{teamId}/challenges<br />
+  PUT - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/teams/{teamId}/challenges<br />
+  DELETE - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/teams/{teamId}/challenges/{challengeId}<br />
   
-  GET - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/challenges/{challengeId}/tasks
-  GET - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/challenges/{challengeId}/tasks/{taskId}
-  POST - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/challenges/{challengeId}/tasks
-  PUT - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/challenges/{challengeId}/tasks
-  DELETE - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/challenges/{challengeId}/tasks/{taskId}
-functions:
-  get-teams: habits-api-dev-get-teams
-  get-team: habits-api-dev-get-team
-  post-team: habits-api-dev-post-team
-  put-team: habits-api-dev-put-team
-  delete-team: habits-api-dev-delete-team
-  get-challenges: habits-api-dev-get-challenges
-  get-challenge: habits-api-dev-get-challenge
-  post-challenge: habits-api-dev-post-challenge
-  put-challenge: habits-api-dev-put-challenge
-  delete-challenge: habits-api-dev-delete-challenge
-  get-tasks: habits-api-dev-get-tasks
-  get-task: habits-api-dev-get-task
-  post-task: habits-api-dev-post-task
-  put-task: habits-api-dev-put-task
-  delete-task: habits-api-dev-delete-task
+  GET - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/challenges/{challengeId}/tasks<br />
+  GET - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/challenges/{challengeId}/tasks/{taskId}<br />
+  POST - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/challenges/{challengeId}/tasks<br />
+  PUT - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/challenges/{challengeId}/tasks<br />
+  DELETE - https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api/challenges/{challengeId}/tasks/{taskId}<br />
+functions:<br />
+  get-teams: habits-api-dev-get-teams<br />
+  get-team: habits-api-dev-get-team<br />
+  post-team: habits-api-dev-post-team<br />
+  put-team: habits-api-dev-put-team<br />
+  delete-team: habits-api-dev-delete-team<br />
+  get-challenges: habits-api-dev-get-challenges<br />
+  get-challenge: habits-api-dev-get-challenge<br />
+  post-challenge: habits-api-dev-post-challenge<br />
+  put-challenge: habits-api-dev-put-challenge<br />
+  delete-challenge: habits-api-dev-delete-challenge<br />
+  get-tasks: habits-api-dev-get-tasks<br />
+  get-task: habits-api-dev-get-task<br />
+  post-task: habits-api-dev-post-task<br />
+  put-task: habits-api-dev-put-task<br />
+  delete-task: habits-api-dev-delete-task<br />
