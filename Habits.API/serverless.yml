@@ -18,21 +18,20 @@ provider:
       Resource: "*"
 
 package:
-  individually: true
+  artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
 
 functions:
   get-teams:
     handler: HabitsEngine::Habits.API.TeamHandler::GetAll
-    package:
-      artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
     events:
       - http:
           path: api/teams
           method: get
+          # authorizer:
+          #   name: authorizer
+          #   arn: arn:aws:cognito-idp:us-west-2:640097525811:userpool/us-west-2_DyfHujw5j
   get-team:
     handler: HabitsEngine::Habits.API.TeamHandler::Get
-    package:
-      artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
     events:
       - http:
           path: api/teams/{teamId}
@@ -43,24 +42,18 @@ functions:
                 teamId: true
   post-team:
     handler: HabitsEngine::Habits.API.TeamHandler::Add
-    package:
-      artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
     events:
       - http:
           path: api/teams
           method: post
   put-team:
     handler: HabitsEngine::Habits.API.TeamHandler::Update
-    package:
-      artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
     events:
       - http:
           path: api/teams
           method: put
   delete-team:
     handler: HabitsEngine::Habits.API.TeamHandler::Delete
-    package:
-      artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
     events:
       - http:
           path: api/teams/{teamId}
@@ -71,8 +64,6 @@ functions:
                 teamId: true
   get-challenges:
     handler: HabitsEngine::Habits.API.ChallengeHandler::GetAll
-    package:
-      artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
     events:
       - http:
           path: api/teams/{teamId}/challenges
@@ -83,8 +74,6 @@ functions:
                 teamId: true
   get-challenge:
     handler: HabitsEngine::Habits.API.ChallengeHandler::Get
-    package:
-      artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
     events:
       - http:
           path: api/teams/{teamId}/challenges/{challengeId}
@@ -96,8 +85,6 @@ functions:
                 challengeId: true
   post-challenge:
     handler: HabitsEngine::Habits.API.ChallengeHandler::Add
-    package:
-      artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
     events:
       - http:
           path: api/teams/{teamId}/challenges
@@ -108,8 +95,6 @@ functions:
                 teamId: true
   put-challenge:
     handler: HabitsEngine::Habits.API.ChallengeHandler::Update
-    package:
-      artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
     events:
       - http:
           path: api/teams/{teamId}/challenges
@@ -120,8 +105,6 @@ functions:
                 teamId: true
   delete-challenge:
     handler: HabitsEngine::Habits.API.ChallengeHandler::Delete
-    package:
-      artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
     events:
       - http:
           path: api/teams/{teamId}/challenges/{challengeId}
@@ -133,8 +116,6 @@ functions:
                 challengeId: true
   get-tasks:
     handler: HabitsEngine::Habits.API.TaskHandler::GetAll
-    package:
-      artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
     events:
       - http:
           path: api/challenges/{challengeId}/tasks
@@ -145,8 +126,6 @@ functions:
                 challengeId: true
   get-task:
     handler: HabitsEngine::Habits.API.TaskHandler::Get
-    package:
-      artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
     events:
       - http:
           path: api/challenges/{challengeId}/tasks/{taskId}
@@ -158,8 +137,6 @@ functions:
                 taskId: true
   post-task:
     handler: HabitsEngine::Habits.API.TaskHandler::Add
-    package:
-      artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
     events:
       - http:
           path: api/challenges/{challengeId}/tasks
@@ -170,8 +147,6 @@ functions:
                 challengeId: true
   put-task:
     handler: HabitsEngine::Habits.API.TaskHandler::Update
-    package:
-      artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
     events:
       - http:
           path: api/challenges/{challengeId}/tasks
@@ -182,8 +157,6 @@ functions:
                 challengeId: true
   delete-task:
     handler: HabitsEngine::Habits.API.TaskHandler::Delete
-    package:
-      artifact: bin/release/netcoreapp2.1/HabitsEngine.zip
     events:
       - http:
           path: api/challenges/{challengeId}/tasks/{taskId}
@@ -193,3 +166,34 @@ functions:
               paths:
                 challengeId: true
                 taskId: true
+# resources:
+#   Resources:
+#     CognitoUserPool:
+#       Type: "AWS::Cognito::UserPool"
+#       Properties:
+#         MfaConfiguration: OFF
+#         UserPoolName: habits-user-pool
+#         UsernameAttributes:
+#           - email
+#         Policies:
+#           PasswordPolicy:
+#             MinimumLength: 6
+#     CognitoUserPoolClient:
+#       Type: "AWS::Cognito::UserPoolClient"
+#       Properties:
+#         ClientName: habits-user-pool-client
+#         GenerateSecret: False
+#         UserPoolId:
+#           Ref: CognitoUserPool
+#     ApiGatewayAuthorizer:
+#       DependsOn:
+#         - ApiGatewayRestApi
+#       Type: AWS::ApiGateway::Authorizer
+#       Properties:
+#         Name: cognito-authorizer
+#         IdentitySource: method.request.header.Authorization
+#         RestApiId:
+#           Ref: ApiGatewayRestApi
+#         Type: COGNITO_USER_POOLS
+#         ProviderARNs:
+#           - Fn::GetAtt: [CognitoUserPool, Arn]

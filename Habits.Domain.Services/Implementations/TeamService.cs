@@ -33,9 +33,9 @@ namespace Habits.Domain.Services
             await _teamRepository.AddAsync(item);
         }
 
-        public Task UpdateAsync(Team item)
+        public async Task UpdateAsync(Team item)
         {
-            throw new NotImplementedException();
+            await _teamRepository.UpdateAsync(item);
         }
 
         public async Task DeleteAsync(String teamId)

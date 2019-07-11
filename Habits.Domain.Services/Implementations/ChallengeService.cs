@@ -33,9 +33,9 @@ namespace Habits.Domain.Services
             await _challengeRepository.AddAsync(item);
         }
 
-        public Task UpdateAsync(Challenge item)
+        public async Task UpdateAsync(Challenge item)
         {
-            throw new NotImplementedException();
+            await _challengeRepository.UpdateAsync(item);
         }
 
         public async Task DeleteAsync(string teamId, string challengeId)

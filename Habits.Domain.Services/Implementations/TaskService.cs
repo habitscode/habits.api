@@ -32,9 +32,9 @@ namespace Habits.Domain.Services
             await _taskRepository.AddAsync(item);
         }
 
-        Task ICrudService<HTask>.UpdateAsync(HTask item)
+        public async Task UpdateAsync(HTask item)
         {
-            throw new NotImplementedException();
+            await _taskRepository.UpdateAsync(item);
         }
 
         public async Task DeleteAsync(String challengeId, String taskId)

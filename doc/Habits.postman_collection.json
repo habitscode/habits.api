@@ -18,6 +18,11 @@
 								"name": "Content-Type",
 								"value": "application/json",
 								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiJ2bnY2ZGFUVUJqdWJPYXc4WmtwNEFXQ2cxM2J0NXhSTUNzVEhLVWRhc0lFPSIsImFsZyI6IlJTMjU2In0.eyJhdF9oYXNoIjoiVGs2ZEpteE9nbXBqRV9KLVBfNEJkZyIsInN1YiI6IjgwNWQ3Zjc3LTVkMTctNDQ1YS1hNjY4LWJiYTg3MGI0Y2U3ZiIsImF1ZCI6IjNiZTY5cWhmbXAzdnM5a3VhamVkbDliZmY1IiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNTYyNjk3MTgyLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtd2VzdC0yLmFtYXpvbmF3cy5jb21cL3VzLXdlc3QtMl9EeWZIdWp3NWoiLCJjb2duaXRvOnVzZXJuYW1lIjoiT3NjYXIiLCJleHAiOjE1NjI3MDA3ODIsImlhdCI6MTU2MjY5NzE4MiwiZW1haWwiOiJvbGxvcGV6Y0BnYm0uY29tLm14In0.p0oDV1PaOk8ohgjqBchqxEglqnaawviiNMrM23st2bBKMrJJ5RSMB941PmheazFMsLMa49-z_TqpmlxR-4uFlBli2uGHi7-U47o7H46xPlLYsv5Osvp94bmu0ZcvCWgFXofmvxh2bDvah3AgyTSgIcLYJBmgxwqrAzltRc5-oHEVvuQVV_DgpVB2xIel6y9RwEZh2193CUp1VCxw5TZc7y-yzgcPue_Tfek_f6mgqv3U8hTRp_JGZGywyXjXEjnZNweX4eXBaL3Iaq-NoyS7M86m1BQFL-izm9-9BNdFE1K00h-P5wQUznfInxCoppkQJh9m3nPcSGTlCAYXfh0pDg&access_token=eyJraWQiOiI2WFF1ckF1NHpFZ253UlJ6RWZTQ0xORkErOENQVmZnR1JQc1VLbVdlUTU4PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI4MDVkN2Y3Ny01ZDE3LTQ0NWEtYTY2OC1iYmE4NzBiNGNlN2YiLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6ImF3cy5jb2duaXRvLnNpZ25pbi51c2VyLmFkbWluIHBob25lIG9wZW5pZCBwcm9maWxlIGVtYWlsIiwiYXV0aF90aW1lIjoxNTYyNjk3MTgyLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtd2VzdC0yLmFtYXpvbmF3cy5jb21cL3VzLXdlc3QtMl9EeWZIdWp3NWoiLCJleHAiOjE1NjI3MDA3ODIsImlhdCI6MTU2MjY5NzE4MiwidmVyc2lvbiI6MiwianRpIjoiYjRjNTlhNTktMWU3Ny00ZWNlLWEzZDItMTliZWVjMzcyNzYxIiwiY2xpZW50X2lkIjoiM2JlNjlxaGZtcDN2czlrdWFqZWRsOWJmZjUiLCJ1c2VybmFtZSI6Ik9zY2FyIn0.p8gXWjalybPkHfYuKdWEbzYLuNogQyn8qOkxVPs4LveRoEh_82wtgRg5ozLNWUeek_h3kvIACcpKl0KfW8wOhpIPC1lyxYb5kaqIRs_TEz53awkLHOJxa7_kzwJu_C9jMVp6s8is84sW94Km8waKYwhgUG5KWH05drJyhJUjTBZtP64Bu52DKIIGDmpz7GCNjGPDO-6o2lsKSKxdIFdsySDz038X5S38rTic521aVtMX8wUMITQrpiEcZkD-z6jMP2zB8Vu3i240F2E7Czj5SpZq6eK9GPJfMdgvKM6BKfWDMvxGZQqXUjV6IY_MNSAg6VkY1TYCVN5TXQNZRsENgA",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -72,6 +77,34 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\t\"Name\": \"New team\"\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/teams",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"teams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update team",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"TeamId\": \"eda1df41-a346-48dc-81ea-1f3288fcd58a\",\n\t\"Name\": \"Team name changed\"\n}"
 						},
 						"url": {
 							"raw": "{{api_url}}/teams",
@@ -183,6 +216,36 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\t\"Name\": \"Other challenge\",\n\t\"Status\": \"Open\",\n\t\"StartDate\": \"08/07/2019\",\n\t\"EndDate\": \"08/07/2019\"\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/teams/eda1df41-a346-48dc-81ea-1f3288fcd58a/challenges",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"teams",
+								"eda1df41-a346-48dc-81ea-1f3288fcd58a",
+								"challenges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update challenge",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"ChallengeId\": \"bfb2f348-55c2-4d29-a52d-c73bbb343ee4\",\n\t\"Name\": \"Challenge Updated 2\",\n\t\"Status\": \"Open\",\n\t\"StartDate\": \"09/07/2019\",\n\t\"EndDate\": \"08/07/2019\"\n}"
 						},
 						"url": {
 							"raw": "{{api_url}}/teams/eda1df41-a346-48dc-81ea-1f3288fcd58a/challenges",
@@ -314,6 +377,36 @@
 					"response": []
 				},
 				{
+					"name": "Update task",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"TaskId\": \"c678f862-1801-48d4-a496-2762eb17a5c5\",\n\t\"What\": \"Task updated 2\",\n\t\"When\": \"08/07/2019\",\n\t\"Where\": \"That place\",\n\t\"Status\": \"Open\",\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/challenges/bfb2f348-55c2-4d29-a52d-c73bbb343ee4/tasks",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"challenges",
+								"bfb2f348-55c2-4d29-a52d-c73bbb343ee4",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Delete task",
 					"request": {
 						"method": "DELETE",
@@ -367,7 +460,7 @@
 	],
 	"variable": [
 		{
-			"id": "8614d656-2c0a-4775-b4c9-00831085508c",
+			"id": "f13ba063-a441-49f9-9183-e322c35abac8",
 			"key": "api_url",
 			"value": "https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api",
 			"type": "string"

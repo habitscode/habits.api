@@ -125,6 +125,37 @@ namespace Habits.API
             };
         }
 
+        public async Task<APIGatewayProxyResponse> Update(APIGatewayProxyRequest request)
+        {
+            if (!validPayload(request.Body))
+            {
+                return new APIGatewayProxyResponse()
+                {
+                    StatusCode = (int)HttpStatusCode.BadRequest,
+                    Body = "Invalid payload, please use payload valid"
+                };
+            }
+
+            if (request.PathParameters == null || !request.PathParameters.TryGetValue("challengeId", out string challengeId))
+            {
+                return new APIGatewayProxyResponse()
+                {
+                    StatusCode = (int)HttpStatusCode.BadRequest,
+                    Body = "Invalid query string, please add challengeId"
+                };
+            }
+
+            var task = JsonConvert.DeserializeObject<HTask>(request.Body);
+            task.ChallengeId = challengeId;
+            await ITaskService.UpdateAsync(task);
+
+            return new APIGatewayProxyResponse()
+            {
+                StatusCode = (int)HttpStatusCode.OK,
+                Body = "Task was updated successfully"
+            };
+        }
+
         public async Task<APIGatewayProxyResponse> Delete(APIGatewayProxyRequest request)
         {
             if (!validPayload(request.Body))

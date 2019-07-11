@@ -57,9 +57,24 @@ namespace Habits.Domain.Repositories
             await _dbClient.PutItemAsync(request);
         }
 
-        public Task UpdateAsync(Team item)
+        public async Task UpdateAsync(Team item)
         {
-            throw new NotImplementedException();
+            var request = new UpdateItemRequest()
+            {
+                TableName = Constants.TeamTableName,
+                Key = new Dictionary<string, AttributeValue>() {
+                    { "TeamId", new AttributeValue() { S = item.TeamId } }
+                },
+                UpdateExpression = "set #Name = :Name",
+                ExpressionAttributeValues = new Dictionary<string, AttributeValue>() {
+                    { ":Name", new AttributeValue(){ S = item.Name} }
+                },
+                ExpressionAttributeNames = new Dictionary<string, string>() {
+                    { "#Name", "Name" }
+                }
+            };
+
+            await _dbClient.UpdateItemAsync(request);
         }
 
         public async Task DeleteAsync(String teamId)

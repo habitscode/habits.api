@@ -101,6 +101,26 @@ namespace Habits.API
             };
         }
 
+        public async Task<APIGatewayProxyResponse> Update(APIGatewayProxyRequest request) {
+            if (!validPayload(request.Body))
+            {
+                return new APIGatewayProxyResponse()
+                {
+                    StatusCode = (int)HttpStatusCode.BadRequest,
+                    Body = "Invalid payload, please use payload valid"
+                };
+            }
+
+            var team = JsonConvert.DeserializeObject<Team>(request.Body);
+            await ITeamService.UpdateAsync(team);
+
+            return new APIGatewayProxyResponse()
+            {
+                StatusCode = (int)HttpStatusCode.OK,
+                Body = "Team was updated successfully"
+            };
+        }
+
         public async Task<APIGatewayProxyResponse> Delete(APIGatewayProxyRequest request) {
             if (!validPayload(request.Body))
             {
