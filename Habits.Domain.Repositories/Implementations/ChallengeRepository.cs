@@ -67,7 +67,8 @@ namespace Habits.Domain.Repositories
                     { "Name", new AttributeValue(){ S = item.Name } },
                     { "StartDate", new AttributeValue(){ S = item.StartDate.ToString() } },
                     { "EndDate", new AttributeValue(){ S = item.EndDate.ToString() } },
-                    { "Status", new AttributeValue(){ S = item.Status.ToString() } }
+                    { "Status", new AttributeValue(){ S = item.Status.ToString() } },
+                    { "Notes", new AttributeValue(){ S = item.Notes } }
                 }
             };
 
@@ -83,12 +84,13 @@ namespace Habits.Domain.Repositories
                     { "TeamId", new AttributeValue(){ S = item.TeamId } },
                     { "ChallengeId", new AttributeValue(){ S = item.ChallengeId } }
                 },
-                UpdateExpression = "set #Name = :Name, StartDate = :StartDate, EndDate = :EndDate, #Status = :Status",
+                UpdateExpression = "set #Name = :Name, StartDate = :StartDate, EndDate = :EndDate, #Status = :Status, Notes = :Notes",
                 ExpressionAttributeValues = new Dictionary<string, AttributeValue>() {
                     { ":Name", new AttributeValue(){ S = item.Name } },
                     { ":StartDate", new AttributeValue(){ S = item.StartDate.ToString() } },
                     { ":EndDate", new AttributeValue(){ S = item.EndDate.ToString()} },
-                    { ":Status", new AttributeValue(){ S = item.Status.ToString() } }
+                    { ":Status", new AttributeValue(){ S = item.Status.ToString() } },
+                    { ":Notes", new AttributeValue(){ S = item.Notes } }
                 },
                 ExpressionAttributeNames = new Dictionary<string, string>() {
                     { "#Name", "Name" },
@@ -123,7 +125,8 @@ namespace Habits.Domain.Repositories
                 Name = item["Name"].S,
                 StartDate = Convert.ToDateTime(item["StartDate"].S),
                 EndDate = Convert.ToDateTime(item["EndDate"].S),
-                Status = (Status)Enum.Parse(typeof(Status), item["Status"].S)
+                Status = (Status)Enum.Parse(typeof(Status), item["Status"].S),
+                Notes = item["Notes"].S
             };
 
             return challenge;

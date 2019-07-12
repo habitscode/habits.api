@@ -66,7 +66,8 @@ namespace Habits.Domain.Repositories
                     { "What", new AttributeValue(){ S = item.What } },
                     { "When", new AttributeValue(){ S = item.When.ToString() } },
                     { "Where", new AttributeValue(){ S = item.Where } },
-                    { "Status", new AttributeValue(){ S = item.Status.ToString() } }
+                    { "Status", new AttributeValue(){ S = item.Status.ToString() } },
+                    { "Notes", new AttributeValue(){ S = item.Notes.ToString() } }
                 }
             };
 
@@ -82,12 +83,13 @@ namespace Habits.Domain.Repositories
                     { "ChallengeId", new AttributeValue(){ S = item.ChallengeId } },
                     { "TaskId", new AttributeValue(){ S = item.TaskId } }
                 },
-                UpdateExpression = "set What = :What, #Where = :Where, #When = :When, #Status = :Status",
+                UpdateExpression = "set What = :What, #Where = :Where, #When = :When, #Status = :Status, Notes = :Notes",
                 ExpressionAttributeValues = new Dictionary<string, AttributeValue>() {
                     { ":What", new AttributeValue(){ S = item.What } },
                     { ":Where", new AttributeValue(){ S = item.Where } },
                     { ":When", new AttributeValue(){ S = item.When.ToString() } },
-                    { ":Status", new AttributeValue(){ S = item.Status.ToString() } }
+                    { ":Status", new AttributeValue(){ S = item.Status.ToString() } },
+                    { ":Notes", new AttributeValue(){ S = item.Notes } }
                 },
                 ExpressionAttributeNames = new Dictionary<string, string>() {
                     { "#Where", "Where" },
@@ -123,7 +125,8 @@ namespace Habits.Domain.Repositories
                 Status = (Status)Enum.Parse(typeof(Status), item["Status"].S),
                 What = item["What"].S,
                 Where = item["Where"].S,
-                When = Convert.ToDateTime(item["When"].S)
+                When = Convert.ToDateTime(item["When"].S),
+                Notes = item["Notes"].S
             };
 
             return task;

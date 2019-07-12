@@ -10,6 +10,7 @@ namespace Habits.Domain.Models
         public DateTime When { get; set; }
         public string Where { get; set; }
         public Status Status { get; set; }
+        public string Notes { get; set; }
 
         public HTask() {
         }
