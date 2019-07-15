@@ -7,16 +7,16 @@ using Habits.Domain.Models;
 
 namespace Habits.Domain.Repositories
 {
-    public class ChallengeRepository :  BaseRepository, IChallengeRepository
+    public class HabitRepository :  BaseRepository, IHabitRepository
     {
-        public ChallengeRepository() : base() { }
-        public ChallengeRepository(IAmazonDynamoDB client) : base(client) { }
+        public HabitRepository() : base() { }
+        public HabitRepository(IAmazonDynamoDB client) : base(client) { }
 
-        public async Task<List<Challenge>> GetItems(String teamId)
+        public async Task<List<Habit>> GetItems(String teamId)
         {
             var request = new QueryRequest()
             {
-                TableName = Constants.ChallengeTableName,
+                TableName = Constants.HabitTableName,
                 KeyConditionExpression = "TeamId = :teamId",
                 ExpressionAttributeValues = new Dictionary<string, AttributeValue>() {
                     { ":teamId", new AttributeValue(){ S = teamId } }
@@ -27,7 +27,7 @@ namespace Habits.Domain.Repositories
 
             if (result.Count > 0)
             {
-                var items = new List<Challenge>();
+                var items = new List<Habit>();
                 foreach (var item in result.Items)
                 {
                     items.Add(GetItem(item));
@@ -37,14 +37,14 @@ namespace Habits.Domain.Repositories
             else return null;
         }
 
-        public async Task<Challenge> GetItem(string teamId, string challengeId)
+        public async Task<Habit> GetItem(string teamId, string habitId)
         {
             var request = new GetItemRequest()
             {
-                TableName = Constants.ChallengeTableName,
+                TableName = Constants.HabitTableName,
                 Key = new Dictionary<string, AttributeValue>() {
                     { "TeamId", new AttributeValue(){ S = teamId } },
-                    { "ChallengeId", new AttributeValue(){ S = challengeId } }
+                    { "HabitId", new AttributeValue(){ S = habitId } }
                 }
             };
 
@@ -56,14 +56,14 @@ namespace Habits.Domain.Repositories
                 return null;
         }
 
-        public async Task AddAsync(Challenge item)
+        public async Task AddAsync(Habit item)
         {
             var request = new PutItemRequest()
             {
-                TableName = Constants.ChallengeTableName,
+                TableName = Constants.HabitTableName,
                 Item = new Dictionary<string, AttributeValue>() {
                     { "TeamId", new AttributeValue(){ S = item.TeamId } },
-                    { "ChallengeId", new AttributeValue(){ S = item.ChallengeId } },
+                    { "HabitId", new AttributeValue(){ S = item.HabitId } },
                     { "Name", new AttributeValue(){ S = item.Name } },
                     { "StartDate", new AttributeValue(){ S = item.StartDate.ToString() } },
                     { "EndDate", new AttributeValue(){ S = item.EndDate.ToString() } },
@@ -75,14 +75,14 @@ namespace Habits.Domain.Repositories
             await _dbClient.PutItemAsync(request);
         }
 
-        public async Task UpdateAsync(Challenge item)
+        public async Task UpdateAsync(Habit item)
         {
             var request = new UpdateItemRequest()
             {
-                TableName = Constants.ChallengeTableName,
+                TableName = Constants.HabitTableName,
                 Key = new Dictionary<string, AttributeValue>() {
                     { "TeamId", new AttributeValue(){ S = item.TeamId } },
-                    { "ChallengeId", new AttributeValue(){ S = item.ChallengeId } }
+                    { "HabitId", new AttributeValue(){ S = item.HabitId } }
                 },
                 UpdateExpression = "set #Name = :Name, StartDate = :StartDate, EndDate = :EndDate, #Status = :Status, Notes = :Notes",
                 ExpressionAttributeValues = new Dictionary<string, AttributeValue>() {
@@ -101,27 +101,27 @@ namespace Habits.Domain.Repositories
             await _dbClient.UpdateItemAsync(request);
         }
 
-        public async Task DeleteAsync(string teamId, string challengeId)
+        public async Task DeleteAsync(string teamId, string habitId)
         {
             var request = new DeleteItemRequest()
             {
-                TableName = Constants.ChallengeTableName,
+                TableName = Constants.HabitTableName,
                 Key = new Dictionary<string, AttributeValue>()
                 {
                     { "TeamId", new AttributeValue(){ S = teamId } },
-                    { "ChallengeId", new AttributeValue(){ S = challengeId } }
+                    { "HabitId", new AttributeValue(){ S = habitId } }
                 }
             };
 
             await _dbClient.DeleteItemAsync(request);
         }
 
-        private Challenge GetItem(Dictionary<string, AttributeValue> item)
+        private Habit GetItem(Dictionary<string, AttributeValue> item)
         {
-            var challenge = new Challenge()
+            var habit = new Habit()
             {
                 TeamId = item["TeamId"].S,
-                ChallengeId = item["ChallengeId"].S,
+                HabitId = item["HabitId"].S,
                 Name = item["Name"].S,
                 StartDate = Convert.ToDateTime(item["StartDate"].S),
                 EndDate = Convert.ToDateTime(item["EndDate"].S),
@@ -129,7 +129,7 @@ namespace Habits.Domain.Repositories
                 Notes = item["Notes"].S
             };
 
-            return challenge;
+            return habit;
         }
     }
 }

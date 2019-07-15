@@ -146,10 +146,10 @@
 			]
 		},
 		{
-			"name": "Challenges",
+			"name": "Habits",
 			"item": [
 				{
-					"name": "Get challenges",
+					"name": "Get habits",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -161,21 +161,21 @@
 							}
 						],
 						"url": {
-							"raw": "{{api_url}}/teams/eda1df41-a346-48dc-81ea-1f3288fcd58a/challenges",
+							"raw": "{{api_url}}/teams/eda1df41-a346-48dc-81ea-1f3288fcd58a/habits",
 							"host": [
 								"{{api_url}}"
 							],
 							"path": [
 								"teams",
 								"eda1df41-a346-48dc-81ea-1f3288fcd58a",
-								"challenges"
+								"habits"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get challenge",
+					"name": "Get habit",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -187,22 +187,22 @@
 							}
 						],
 						"url": {
-							"raw": "{{api_url}}/teams/eda1df41-a346-48dc-81ea-1f3288fcd58a/challenges/6c65f3dd-70a1-4821-ad7d-b9fdfd7e39c0",
+							"raw": "{{api_url}}/teams/eda1df41-a346-48dc-81ea-1f3288fcd58a/habits/c0825e3d-4e5a-4f34-8f2f-3481b6d4798d",
 							"host": [
 								"{{api_url}}"
 							],
 							"path": [
 								"teams",
 								"eda1df41-a346-48dc-81ea-1f3288fcd58a",
-								"challenges",
-								"6c65f3dd-70a1-4821-ad7d-b9fdfd7e39c0"
+								"habits",
+								"c0825e3d-4e5a-4f34-8f2f-3481b6d4798d"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Add challenge",
+					"name": "Add habit",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -215,24 +215,24 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"Name\": \"Other challenge\",\n\t\"Status\": \"Open\",\n\t\"StartDate\": \"08/07/2019\",\n\t\"EndDate\": \"08/07/2019\"\n}"
+							"raw": "{\n\t\"Name\": \"New habit\",\n\t\"Status\": \"Open\",\n\t\"StartDate\": \"08/07/2019\",\n\t\"EndDate\": \"08/07/2019\",\n\t\"Notes\": \"Something\"\n}"
 						},
 						"url": {
-							"raw": "{{api_url}}/teams/eda1df41-a346-48dc-81ea-1f3288fcd58a/challenges",
+							"raw": "{{api_url}}/teams/eda1df41-a346-48dc-81ea-1f3288fcd58a/habits",
 							"host": [
 								"{{api_url}}"
 							],
 							"path": [
 								"teams",
 								"eda1df41-a346-48dc-81ea-1f3288fcd58a",
-								"challenges"
+								"habits"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Update challenge",
+					"name": "Update habit",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -245,24 +245,24 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"ChallengeId\": \"bfb2f348-55c2-4d29-a52d-c73bbb343ee4\",\n\t\"Name\": \"Challenge Updated 2\",\n\t\"Status\": \"Open\",\n\t\"StartDate\": \"09/07/2019\",\n\t\"EndDate\": \"08/07/2019\"\n}"
+							"raw": "{\n\t\"HabitId\": \"c0825e3d-4e5a-4f34-8f2f-3481b6d4798d\",\n\t\"Name\": \"Habit Updated 2\",\n\t\"Status\": \"Open\",\n\t\"StartDate\": \"09/07/2019\",\n\t\"EndDate\": \"08/07/2019\",\n\t\"Notes\": \"Updating note\"\n}"
 						},
 						"url": {
-							"raw": "{{api_url}}/teams/eda1df41-a346-48dc-81ea-1f3288fcd58a/challenges",
+							"raw": "{{api_url}}/teams/eda1df41-a346-48dc-81ea-1f3288fcd58a/habits",
 							"host": [
 								"{{api_url}}"
 							],
 							"path": [
 								"teams",
 								"eda1df41-a346-48dc-81ea-1f3288fcd58a",
-								"challenges"
+								"habits"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Delete challenge",
+					"name": "Delete habit",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -274,15 +274,15 @@
 							}
 						],
 						"url": {
-							"raw": "{{api_url}}/teams/eda1df41-a346-48dc-81ea-1f3288fcd58a/challenges/6c65f3dd-70a1-4821-ad7d-b9fdfd7e39c0",
+							"raw": "{{api_url}}/teams/eda1df41-a346-48dc-81ea-1f3288fcd58a/habits/c0825e3d-4e5a-4f34-8f2f-3481b6d4798d",
 							"host": [
 								"{{api_url}}"
 							],
 							"path": [
 								"teams",
 								"eda1df41-a346-48dc-81ea-1f3288fcd58a",
-								"challenges",
-								"6c65f3dd-70a1-4821-ad7d-b9fdfd7e39c0"
+								"habits",
+								"c0825e3d-4e5a-4f34-8f2f-3481b6d4798d"
 							]
 						}
 					},
@@ -306,13 +306,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{api_url}}/challenges/bfb2f348-55c2-4d29-a52d-c73bbb343ee4/tasks",
+							"raw": "{{api_url}}/habits/d6a79a07-8f98-40fd-b1c2-d6269b3d6918/tasks",
 							"host": [
 								"{{api_url}}"
 							],
 							"path": [
-								"challenges",
-								"bfb2f348-55c2-4d29-a52d-c73bbb343ee4",
+								"habits",
+								"d6a79a07-8f98-40fd-b1c2-d6269b3d6918",
 								"tasks"
 							]
 						}
@@ -332,15 +332,15 @@
 							}
 						],
 						"url": {
-							"raw": "{{api_url}}/challenges/bfb2f348-55c2-4d29-a52d-c73bbb343ee4/tasks/6ce8f817-0ad5-4218-87a0-b2df994bbc1f",
+							"raw": "{{api_url}}/habits/d6a79a07-8f98-40fd-b1c2-d6269b3d6918/tasks/30564597-6805-4097-bab3-f5fa41bce3f6",
 							"host": [
 								"{{api_url}}"
 							],
 							"path": [
-								"challenges",
-								"bfb2f348-55c2-4d29-a52d-c73bbb343ee4",
+								"habits",
+								"d6a79a07-8f98-40fd-b1c2-d6269b3d6918",
 								"tasks",
-								"6ce8f817-0ad5-4218-87a0-b2df994bbc1f"
+								"30564597-6805-4097-bab3-f5fa41bce3f6"
 							]
 						}
 					},
@@ -360,16 +360,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"What\": \"Another task\",\n\t\"When\": \"08/07/2019\",\n\t\"Where\": \"Somewhere\",\n\t\"Status\": \"Open\",\n}"
+							"raw": "{\n\t\"What\": \"Some task\",\n\t\"When\": \"08/07/2019\",\n\t\"Where\": \"Somewhere\",\n\t\"Status\": \"Open\",\n\t\"Notes\": \"Something\"\n}"
 						},
 						"url": {
-							"raw": "{{api_url}}/challenges/bfb2f348-55c2-4d29-a52d-c73bbb343ee4/tasks",
+							"raw": "{{api_url}}/habits/d6a79a07-8f98-40fd-b1c2-d6269b3d6918/tasks",
 							"host": [
 								"{{api_url}}"
 							],
 							"path": [
-								"challenges",
-								"bfb2f348-55c2-4d29-a52d-c73bbb343ee4",
+								"habits",
+								"d6a79a07-8f98-40fd-b1c2-d6269b3d6918",
 								"tasks"
 							]
 						}
@@ -390,16 +390,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"TaskId\": \"c678f862-1801-48d4-a496-2762eb17a5c5\",\n\t\"What\": \"Task updated 2\",\n\t\"When\": \"08/07/2019\",\n\t\"Where\": \"That place\",\n\t\"Status\": \"Open\",\n}"
+							"raw": "{\n\t\"TaskId\": \"30564597-6805-4097-bab3-f5fa41bce3f6\",\n\t\"What\": \"Task updated 2\",\n\t\"When\": \"08/07/2019\",\n\t\"Where\": \"That place\",\n\t\"Status\": \"Open\",\n\t\"Notes\": \"Note updated\"\n}"
 						},
 						"url": {
-							"raw": "{{api_url}}/challenges/bfb2f348-55c2-4d29-a52d-c73bbb343ee4/tasks",
+							"raw": "{{api_url}}/habits/d6a79a07-8f98-40fd-b1c2-d6269b3d6918/tasks",
 							"host": [
 								"{{api_url}}"
 							],
 							"path": [
-								"challenges",
-								"bfb2f348-55c2-4d29-a52d-c73bbb343ee4",
+								"habits",
+								"d6a79a07-8f98-40fd-b1c2-d6269b3d6918",
 								"tasks"
 							]
 						}
@@ -419,15 +419,15 @@
 							}
 						],
 						"url": {
-							"raw": "{{api_url}}/challenges/bfb2f348-55c2-4d29-a52d-c73bbb343ee4/tasks/6ce8f817-0ad5-4218-87a0-b2df994bbc1f",
+							"raw": "{{api_url}}/habits/d6a79a07-8f98-40fd-b1c2-d6269b3d691/tasks/30564597-6805-4097-bab3-f5fa41bce3f6",
 							"host": [
 								"{{api_url}}"
 							],
 							"path": [
-								"challenges",
-								"bfb2f348-55c2-4d29-a52d-c73bbb343ee4",
+								"habits",
+								"d6a79a07-8f98-40fd-b1c2-d6269b3d691",
 								"tasks",
-								"6ce8f817-0ad5-4218-87a0-b2df994bbc1f"
+								"30564597-6805-4097-bab3-f5fa41bce3f6"
 							]
 						}
 					},
@@ -460,7 +460,7 @@
 	],
 	"variable": [
 		{
-			"id": "f13ba063-a441-49f9-9183-e322c35abac8",
+			"id": "dcf99a6d-be89-4bf1-b2af-b9e6b027bba6",
 			"key": "api_url",
 			"value": "https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api",
 			"type": "string"

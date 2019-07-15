@@ -14,15 +14,15 @@ namespace Habits.Domain.Services
             _taskRepository = taskRepository;
         }
 
-        public async Task<List<HTask>> GetItems(String challengeId)
+        public async Task<List<HTask>> GetItems(String habitId)
         {
-            var result = await _taskRepository.GetItems(challengeId);
+            var result = await _taskRepository.GetItems(habitId);
             return result;
         }
 
-        public async Task<HTask> GetItem(string challengeId, string taskId)
+        public async Task<HTask> GetItem(string habitId, string taskId)
         {
-            var result = await _taskRepository.GetItem(challengeId, taskId);
+            var result = await _taskRepository.GetItem(habitId, taskId);
             return result;
         }
 
@@ -37,9 +37,9 @@ namespace Habits.Domain.Services
             await _taskRepository.UpdateAsync(item);
         }
 
-        public async Task DeleteAsync(String challengeId, String taskId)
+        public async Task DeleteAsync(String habitId, String taskId)
         {
-            await _taskRepository.DeleteAsync(challengeId, taskId);
+            await _taskRepository.DeleteAsync(habitId, taskId);
         }
     }
 }

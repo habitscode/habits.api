@@ -6,6 +6,6 @@ namespace Habits.Domain.Models
     {
         public string TeamId { get; set; }
         public string Name { get; set; }
-        public List<Challenge> Challenges { get; set; }
+        public List<Habit> Habits { get; set; }
     }
 }

@@ -4,7 +4,7 @@ namespace Habits.Domain.Models
 {
     public class HTask
     {
-        public string ChallengeId { get; set; }
+        public string HabitId { get; set; }
         public string TaskId { get; set; }
         public string What { get; set; }
         public DateTime When { get; set; }

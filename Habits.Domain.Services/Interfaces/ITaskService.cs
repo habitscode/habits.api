@@ -7,8 +7,8 @@ namespace Habits.Domain.Services
 {
     public interface ITaskService : ICrudService<HTask>
     {
-        Task<List<HTask>> GetItems(String challengeId);
-        Task<HTask> GetItem(String challengeId, String taskId);
-        Task DeleteAsync(String challengeId, String taskId);
+        Task<List<HTask>> GetItems(String habitId);
+        Task<HTask> GetItem(String habitId, String taskId);
+        Task DeleteAsync(String habitId, String taskId);
     }
 }

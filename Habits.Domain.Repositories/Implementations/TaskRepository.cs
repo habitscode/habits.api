@@ -13,14 +13,14 @@ namespace Habits.Domain.Repositories
         public TaskRepository() : base() { }
         public TaskRepository(IAmazonDynamoDB client) : base(client) { }
 
-        public async Task<List<HTask>> GetItems(String challengeId)
+        public async Task<List<HTask>> GetItems(String habitId)
         {
             var request = new QueryRequest()
             {
                 TableName = Constants.TaskTableName,
-                KeyConditionExpression = "ChallengeId = :challengeId",
+                KeyConditionExpression = "HabitId = :habitId",
                 ExpressionAttributeValues = new Dictionary<string, AttributeValue>() {
-                    { ":challengeId", new AttributeValue(){ S = challengeId } }
+                    { ":habitId", new AttributeValue(){ S = habitId } }
                 }
             };
 
@@ -38,12 +38,12 @@ namespace Habits.Domain.Repositories
             else return null;
         }
 
-        public async Task<HTask> GetItem(string challengeId, string taskId)
+        public async Task<HTask> GetItem(string habitId, string taskId)
         {
             var request = new GetItemRequest() {
                 TableName = Constants.TaskTableName,
                 Key = new Dictionary<string, AttributeValue>() {
-                    { "ChallengeId", new AttributeValue(){ S = challengeId } },
+                    { "HabitId", new AttributeValue(){ S = habitId } },
                     { "TaskId", new AttributeValue(){ S = taskId } }
                 }
             };
@@ -61,7 +61,7 @@ namespace Habits.Domain.Repositories
             var request = new PutItemRequest() {
                 TableName = Constants.TaskTableName,
                 Item = new Dictionary<string, AttributeValue>() {
-                    { "ChallengeId", new AttributeValue(){ S = item.ChallengeId } },
+                    { "HabitId", new AttributeValue(){ S = item.HabitId } },
                     { "TaskId", new AttributeValue(){ S = item.TaskId } },
                     { "What", new AttributeValue(){ S = item.What } },
                     { "When", new AttributeValue(){ S = item.When.ToString() } },
@@ -80,7 +80,7 @@ namespace Habits.Domain.Repositories
             {
                 TableName = Constants.TaskTableName,
                 Key = new Dictionary<string, AttributeValue>() {
-                    { "ChallengeId", new AttributeValue(){ S = item.ChallengeId } },
+                    { "HabitId", new AttributeValue(){ S = item.HabitId } },
                     { "TaskId", new AttributeValue(){ S = item.TaskId } }
                 },
                 UpdateExpression = "set What = :What, #Where = :Where, #When = :When, #Status = :Status, Notes = :Notes",
@@ -101,14 +101,14 @@ namespace Habits.Domain.Repositories
             await _dbClient.UpdateItemAsync(request);
         }
 
-        public async Task DeleteAsync(string challengeId, string taskId)
+        public async Task DeleteAsync(string habitId, string taskId)
         {
             var request = new DeleteItemRequest()
             {
                 TableName = Constants.TaskTableName,
                 Key = new Dictionary<string, AttributeValue>()
                 {
-                    { "ChallengeId", new AttributeValue(){ S = challengeId } },
+                    { "HabitId", new AttributeValue(){ S = habitId } },
                     { "TaskId", new AttributeValue(){ S = taskId } }
                 }
             };
@@ -120,7 +120,7 @@ namespace Habits.Domain.Repositories
         {
             var task = new HTask()
             {
-                ChallengeId = item["ChallengeId"].S,
+                HabitId = item["HabitId"].S,
                 TaskId = item["TaskId"].S,
                 Status = (Status)Enum.Parse(typeof(Status), item["Status"].S),
                 What = item["What"].S,

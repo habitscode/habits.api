@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace Habits.Domain.Models
 {
-    public class Challenge
+    public class Habit
     {
         public string TeamId { get; set; }
-        public string ChallengeId { get; set; }
+        public string HabitId { get; set; }
         public string Name { get; set; }
         public List<HTask> Tasks { get; set; }
         public Status Status { get; set; }
@@ -14,7 +14,7 @@ namespace Habits.Domain.Models
         public DateTime EndDate { get; set; }
         public string Notes { get; set; }
 
-        public Challenge()
+        public Habit()
         {
         }
     }

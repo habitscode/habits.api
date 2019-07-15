@@ -38,16 +38,16 @@ namespace Habits.API
                 };
             }
 
-            if (request.PathParameters == null || !request.PathParameters.TryGetValue("challengeId", out string challengeId))
+            if (request.PathParameters == null || !request.PathParameters.TryGetValue("habitId", out string habitId))
             {
                 return new APIGatewayProxyResponse()
                 {
                     StatusCode = (int)HttpStatusCode.BadRequest,
-                    Body = "Invalid query string, please add challengeId"
+                    Body = "Invalid query string, please add habitId"
                 };
             }
 
-            var items = await ITaskService.GetItems(challengeId);
+            var items = await ITaskService.GetItems(habitId);
 
             return new APIGatewayProxyResponse()
             {
@@ -68,12 +68,12 @@ namespace Habits.API
                 };
             }
 
-            if (request.PathParameters == null || !request.PathParameters.TryGetValue("challengeId", out string challengeId))
+            if (request.PathParameters == null || !request.PathParameters.TryGetValue("habitId", out string habitId))
             {
                 return new APIGatewayProxyResponse()
                 {
                     StatusCode = (int)HttpStatusCode.BadRequest,
-                    Body = "Invalid query string, please add challengeId"
+                    Body = "Invalid query string, please add habitId"
                 };
             }
 
@@ -86,7 +86,7 @@ namespace Habits.API
                 };
             }
 
-            var item = await ITaskService.GetItem(challengeId, taskId);
+            var item = await ITaskService.GetItem(habitId, taskId);
 
             return new APIGatewayProxyResponse()
             {
@@ -105,17 +105,17 @@ namespace Habits.API
                 };
             }
 
-            if (request.PathParameters == null || !request.PathParameters.TryGetValue("challengeId", out string challengeId))
+            if (request.PathParameters == null || !request.PathParameters.TryGetValue("habitId", out string habitId))
             {
                 return new APIGatewayProxyResponse()
                 {
                     StatusCode = (int)HttpStatusCode.BadRequest,
-                    Body = "Invalid query string, please add challengeId"
+                    Body = "Invalid query string, please add habitId"
                 };
             }
 
             var task = JsonConvert.DeserializeObject<HTask>(request.Body);
-            task.ChallengeId = challengeId;
+            task.HabitId = habitId;
             await ITaskService.AddAsync(task);
 
             return new APIGatewayProxyResponse()
@@ -136,17 +136,17 @@ namespace Habits.API
                 };
             }
 
-            if (request.PathParameters == null || !request.PathParameters.TryGetValue("challengeId", out string challengeId))
+            if (request.PathParameters == null || !request.PathParameters.TryGetValue("habitId", out string habitId))
             {
                 return new APIGatewayProxyResponse()
                 {
                     StatusCode = (int)HttpStatusCode.BadRequest,
-                    Body = "Invalid query string, please add challengeId"
+                    Body = "Invalid query string, please add habitId"
                 };
             }
 
             var task = JsonConvert.DeserializeObject<HTask>(request.Body);
-            task.ChallengeId = challengeId;
+            task.HabitId = habitId;
             await ITaskService.UpdateAsync(task);
 
             return new APIGatewayProxyResponse()
@@ -167,12 +167,12 @@ namespace Habits.API
                 };
             }
 
-            if (request.PathParameters == null || !request.PathParameters.TryGetValue("challengeId", out string challengeId))
+            if (request.PathParameters == null || !request.PathParameters.TryGetValue("habitId", out string habitId))
             {
                 return new APIGatewayProxyResponse()
                 {
                     StatusCode = (int)HttpStatusCode.BadRequest,
-                    Body = "Invalid query string, please add challengeId"
+                    Body = "Invalid query string, please add habitId"
                 };
             }
 
@@ -185,7 +185,7 @@ namespace Habits.API
                 };
             }
 
-            await ITaskService.DeleteAsync(challengeId, taskId);
+            await ITaskService.DeleteAsync(habitId, taskId);
 
             return new APIGatewayProxyResponse()
             {

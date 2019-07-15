@@ -62,109 +62,109 @@ functions:
             parameters:
               paths:
                 teamId: true
-  get-challenges:
-    handler: HabitsEngine::Habits.API.ChallengeHandler::GetAll
+  get-habits:
+    handler: HabitsEngine::Habits.API.HabitHandler::GetAll
     events:
       - http:
-          path: api/teams/{teamId}/challenges
+          path: api/teams/{teamId}/habits
           method: get
           request:
             parameters:
               paths:
                 teamId: true
-  get-challenge:
-    handler: HabitsEngine::Habits.API.ChallengeHandler::Get
+  get-habit:
+    handler: HabitsEngine::Habits.API.HabitHandler::Get
     events:
       - http:
-          path: api/teams/{teamId}/challenges/{challengeId}
+          path: api/teams/{teamId}/habits/{habitId}
           method: get
           request:
             parameters:
               paths:
                 teamId: true
-                challengeId: true
-  post-challenge:
-    handler: HabitsEngine::Habits.API.ChallengeHandler::Add
+                habitId: true
+  post-habit:
+    handler: HabitsEngine::Habits.API.HabitHandler::Add
     events:
       - http:
-          path: api/teams/{teamId}/challenges
+          path: api/teams/{teamId}/habits
           method: post
           request:
             parameters:
               paths:
                 teamId: true
-  put-challenge:
-    handler: HabitsEngine::Habits.API.ChallengeHandler::Update
+  put-habit:
+    handler: HabitsEngine::Habits.API.HabitHandler::Update
     events:
       - http:
-          path: api/teams/{teamId}/challenges
+          path: api/teams/{teamId}/habits
           method: put
           request:
             parameters:
               paths:
                 teamId: true
-  delete-challenge:
-    handler: HabitsEngine::Habits.API.ChallengeHandler::Delete
+  delete-habit:
+    handler: HabitsEngine::Habits.API.HabitHandler::Delete
     events:
       - http:
-          path: api/teams/{teamId}/challenges/{challengeId}
+          path: api/teams/{teamId}/habits/{habitId}
           method: delete
           request:
             parameters:
               paths:
                 teamId: true
-                challengeId: true
+                habitId: true
   get-tasks:
     handler: HabitsEngine::Habits.API.TaskHandler::GetAll
     events:
       - http:
-          path: api/challenges/{challengeId}/tasks
+          path: api/habits/{habitId}/tasks
           method: get
           request:
             parameters:
               paths:
-                challengeId: true
+                habitId: true
   get-task:
     handler: HabitsEngine::Habits.API.TaskHandler::Get
     events:
       - http:
-          path: api/challenges/{challengeId}/tasks/{taskId}
+          path: api/habits/{habitId}/tasks/{taskId}
           method: get
           request:
             parameters:
               paths:
-                challengeId: true
+                habitId: true
                 taskId: true
   post-task:
     handler: HabitsEngine::Habits.API.TaskHandler::Add
     events:
       - http:
-          path: api/challenges/{challengeId}/tasks
+          path: api/habits/{habitId}/tasks
           method: post
           request:
             parameters:
               paths:
-                challengeId: true
+                habitId: true
   put-task:
     handler: HabitsEngine::Habits.API.TaskHandler::Update
     events:
       - http:
-          path: api/challenges/{challengeId}/tasks
+          path: api/habits/{habitId}/tasks
           method: put
           request:
             parameters:
               paths:
-                challengeId: true
+                habitId: true
   delete-task:
     handler: HabitsEngine::Habits.API.TaskHandler::Delete
     events:
       - http:
-          path: api/challenges/{challengeId}/tasks/{taskId}
+          path: api/habits/{habitId}/tasks/{taskId}
           method: delete
           request:
             parameters:
               paths:
-                challengeId: true
+                habitId: true
                 taskId: true
 # resources:
 #   Resources:

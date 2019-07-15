@@ -11,22 +11,22 @@ using Newtonsoft.Json;
 
 namespace Habits.API
 {
-    public class ChallengeHandler
+    public class HabitHandler
     {
-        private IChallengeService IChallengeService { get; }
+        private IHabitService IHabitService { get; }
 
-        public ChallengeHandler()
+        public HabitHandler()
         {
             var serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            IChallengeService = serviceProvider.GetService<IChallengeService>();
+            IHabitService = serviceProvider.GetService<IHabitService>();
         }
 
         private void ConfigureServices(ServiceCollection serviceCollection)
         {
-            serviceCollection.AddScoped<IChallengeService, ChallengeService>();
-            serviceCollection.AddScoped<IChallengeRepository, ChallengeRepository>();
+            serviceCollection.AddScoped<IHabitService, HabitService>();
+            serviceCollection.AddScoped<IHabitRepository, HabitRepository>();
         }
 
         public async Task<APIGatewayProxyResponse> GetAll(APIGatewayProxyRequest request)
@@ -49,7 +49,7 @@ namespace Habits.API
                 };
             }
 
-            var items = await IChallengeService.GetItems(teamId);
+            var items = await IHabitService.GetItems(teamId);
 
             return new APIGatewayProxyResponse()
             {
@@ -79,16 +79,16 @@ namespace Habits.API
                 };
             }
 
-            if (!request.PathParameters.TryGetValue("challengeId", out string challengeId))
+            if (!request.PathParameters.TryGetValue("habitId", out string habitId))
             {
                 return new APIGatewayProxyResponse()
                 {
                     StatusCode = (int)HttpStatusCode.BadRequest,
-                    Body = "Invalid query string, please add challengeId"
+                    Body = "Invalid query string, please add habitId"
                 };
             }
 
-            var item = await IChallengeService.GetItem(teamId, challengeId);
+            var item = await IHabitService.GetItem(teamId, habitId);
 
             return new APIGatewayProxyResponse()
             {
@@ -118,14 +118,14 @@ namespace Habits.API
                 };
             }
 
-            var challenge = JsonConvert.DeserializeObject<Challenge>(request.Body);
-            challenge.TeamId = teamId;
-            await IChallengeService.AddAsync(challenge);
+            var habit = JsonConvert.DeserializeObject<Habit>(request.Body);
+            habit.TeamId = teamId;
+            await IHabitService.AddAsync(habit);
 
             return new APIGatewayProxyResponse()
             {
                 StatusCode = (int)HttpStatusCode.OK,
-                Body = "Challenge was saved successfully"
+                Body = "Habit was saved successfully"
             };
         }
 
@@ -149,14 +149,14 @@ namespace Habits.API
                 };
             }
 
-            var challenge = JsonConvert.DeserializeObject<Challenge>(request.Body);
-            challenge.TeamId = teamId;
-            await IChallengeService.UpdateAsync(challenge);
+            var habit = JsonConvert.DeserializeObject<Habit>(request.Body);
+            habit.TeamId = teamId;
+            await IHabitService.UpdateAsync(habit);
 
             return new APIGatewayProxyResponse()
             {
                 StatusCode = (int)HttpStatusCode.OK,
-                Body = "Challenge was updated successfully"
+                Body = "Habit was updated successfully"
             };
         }
 
@@ -179,21 +179,21 @@ namespace Habits.API
                 };
             }
 
-            if (!request.PathParameters.TryGetValue("challengeId", out string challengeId))
+            if (!request.PathParameters.TryGetValue("habitId", out string habitId))
             {
                 return new APIGatewayProxyResponse()
                 {
                     StatusCode = (int)HttpStatusCode.BadRequest,
-                    Body = "Invalid query string, please add challengeId"
+                    Body = "Invalid query string, please add habitId"
                 };
             }
 
-            await IChallengeService.DeleteAsync(teamId, challengeId);
+            await IHabitService.DeleteAsync(teamId, habitId);
 
             return new APIGatewayProxyResponse()
             {
                 StatusCode = (int)HttpStatusCode.OK,
-                Body = "Challenge was deleted successfully"
+                Body = "Habit was deleted successfully"
             };
         }
 
