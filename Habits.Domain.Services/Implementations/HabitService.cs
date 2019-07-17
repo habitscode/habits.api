@@ -30,6 +30,7 @@ namespace Habits.Domain.Services
         public async Task AddAsync(Habit item)
         {
             item.HabitId = Guid.NewGuid().ToString();
+            if (item.Notes == null) item.Notes = string.Empty;
             await _habitRepository.AddAsync(item);
         }
 

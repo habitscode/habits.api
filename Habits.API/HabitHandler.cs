@@ -31,21 +31,12 @@ namespace Habits.API
 
         public async Task<APIGatewayProxyResponse> GetAll(APIGatewayProxyRequest request)
         {
-            if (!validPayload(request.Body))
+            if (!validPathParameters(request.PathParameters, out string teamId, out string error))
             {
                 return new APIGatewayProxyResponse()
                 {
                     StatusCode = (int)HttpStatusCode.BadRequest,
-                    Body = "Invalid payload, please use payload valid"
-                };
-            }
-
-            if (request.PathParameters == null || !request.PathParameters.TryGetValue("teamId", out string teamId))
-            {
-                return new APIGatewayProxyResponse()
-                {
-                    StatusCode = (int)HttpStatusCode.BadRequest,
-                    Body = "Invalid query string, please add teamId"
+                    Body = error
                 };
             }
 
@@ -61,30 +52,12 @@ namespace Habits.API
 
         public async Task<APIGatewayProxyResponse> Get(APIGatewayProxyRequest request)
         {
-            if (!validPayload(request.Body))
+            if (!validPathParameters(request.PathParameters, out string teamId, out string habitId, out string error))
             {
                 return new APIGatewayProxyResponse()
                 {
                     StatusCode = (int)HttpStatusCode.BadRequest,
-                    Body = "Invalid payload, please use payload valid"
-                };
-            }
-
-            if (request.PathParameters == null || !request.PathParameters.TryGetValue("teamId", out string teamId))
-            {
-                return new APIGatewayProxyResponse()
-                {
-                    StatusCode = (int)HttpStatusCode.BadRequest,
-                    Body = "Invalid query string, please add teamId"
-                };
-            }
-
-            if (!request.PathParameters.TryGetValue("habitId", out string habitId))
-            {
-                return new APIGatewayProxyResponse()
-                {
-                    StatusCode = (int)HttpStatusCode.BadRequest,
-                    Body = "Invalid query string, please add habitId"
+                    Body = error
                 };
             }
 
@@ -100,25 +73,16 @@ namespace Habits.API
 
         public async Task<APIGatewayProxyResponse> Add(APIGatewayProxyRequest request)
         {
-            if (!validPayload(request.Body))
+            if (!validPathParameters(request.PathParameters, out string teamId, out string error) ||
+                !validPayload(request.Body, out Habit habit, out error))
             {
                 return new APIGatewayProxyResponse()
                 {
                     StatusCode = (int)HttpStatusCode.BadRequest,
-                    Body = "Invalid payload, please use payload valid"
+                    Body = error
                 };
             }
 
-            if (request.PathParameters == null || !request.PathParameters.TryGetValue("teamId", out string teamId))
-            {
-                return new APIGatewayProxyResponse()
-                {
-                    StatusCode = (int)HttpStatusCode.BadRequest,
-                    Body = "Invalid query string, please add teamId"
-                };
-            }
-
-            var habit = JsonConvert.DeserializeObject<Habit>(request.Body);
             habit.TeamId = teamId;
             await IHabitService.AddAsync(habit);
 
@@ -131,25 +95,16 @@ namespace Habits.API
 
         public async Task<APIGatewayProxyResponse> Update(APIGatewayProxyRequest request)
         {
-            if (!validPayload(request.Body))
+            if (!validPathParameters(request.PathParameters, out string teamId, out string error) ||
+                !validPayload(request.Body, out Habit habit, out error))
             {
                 return new APIGatewayProxyResponse()
                 {
                     StatusCode = (int)HttpStatusCode.BadRequest,
-                    Body = "Invalid payload, please use payload valid"
+                    Body = error
                 };
             }
 
-            if (request.PathParameters == null || !request.PathParameters.TryGetValue("teamId", out string teamId))
-            {
-                return new APIGatewayProxyResponse()
-                {
-                    StatusCode = (int)HttpStatusCode.BadRequest,
-                    Body = "Invalid query string, please add teamId"
-                };
-            }
-
-            var habit = JsonConvert.DeserializeObject<Habit>(request.Body);
             habit.TeamId = teamId;
             await IHabitService.UpdateAsync(habit);
 
@@ -161,30 +116,12 @@ namespace Habits.API
         }
 
         public async Task<APIGatewayProxyResponse> Delete(APIGatewayProxyRequest request) {
-            if (!validPayload(request.Body))
+            if (!validPathParameters(request.PathParameters, out string teamId, out string habitId, out string error))
             {
                 return new APIGatewayProxyResponse()
                 {
                     StatusCode = (int)HttpStatusCode.BadRequest,
-                    Body = "Invalid payload, please use payload valid"
-                };
-            }
-
-            if (request.PathParameters == null || !request.PathParameters.TryGetValue("teamId", out string teamId))
-            {
-                return new APIGatewayProxyResponse()
-                {
-                    StatusCode = (int)HttpStatusCode.BadRequest,
-                    Body = "Invalid query string, please add teamId"
-                };
-            }
-
-            if (!request.PathParameters.TryGetValue("habitId", out string habitId))
-            {
-                return new APIGatewayProxyResponse()
-                {
-                    StatusCode = (int)HttpStatusCode.BadRequest,
-                    Body = "Invalid query string, please add habitId"
+                    Body = error
                 };
             }
 
@@ -197,9 +134,54 @@ namespace Habits.API
             };
         }
 
-        private bool validPayload(string body)
+        #region Validations
+        private bool validPayload(string body, out Habit habit, out string error)
         {
+            try
+            {
+                habit = JsonConvert.DeserializeObject<Habit>(body);
+                error = string.Empty;
+                return true;
+            }
+            catch (JsonException ex)
+            {
+                error = "Invalid payload, please use payload valid, error: " + ex.Message;
+                habit = null;
+                return false;
+            }
+        }
+
+        private bool validPathParameters(IDictionary<string, string> pathParameters, out string teamId, out string error)
+        {
+            if (pathParameters == null || !pathParameters.TryGetValue("teamId", out teamId))
+            {
+                error = "Invalid query string, please add teamId";
+                teamId = string.Empty;
+                return false;
+            }
+
+            error = string.Empty;
             return true;
         }
+
+        private bool validPathParameters(IDictionary<string, string> pathParameters, out string teamId, out string habitId, out string error)
+        {
+            if (pathParameters == null || !pathParameters.TryGetValue("teamId", out teamId))
+            {
+                error = "Invalid query string, please add teamId";
+                teamId = habitId = string.Empty;
+                return false;
+            }
+
+            if (!pathParameters.TryGetValue("habitId", out habitId))
+            {
+                error = "Invalid query string, please add habitId";
+                return false;
+            }
+
+            error = string.Empty;
+            return true;
+        }
+        #endregion
     }
 }

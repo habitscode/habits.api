@@ -6,5 +6,6 @@
         public static readonly string TeamMembersTableName = "TeamMembers";
         public static readonly string HabitTableName = "Habits";
         public static readonly string TaskTableName = "Tasks";
+        public static readonly string ScheduledTasks = "ScheduledTasks";
     }
 }

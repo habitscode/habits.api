@@ -10,5 +10,6 @@ namespace Habits.Domain.Repositories
         Task<List<HTask>> GetItems(String habitId);
         Task<HTask> GetItem(String habitId, String taskId);
         Task DeleteAsync(String habitId, String taskId);
+        Task SaveAsync(List<ScheduledTask> scheduledTasks);
     }
 }

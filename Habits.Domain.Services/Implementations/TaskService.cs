@@ -29,6 +29,7 @@ namespace Habits.Domain.Services
         public async Task AddAsync(HTask item)
         {
             item.TaskId = Guid.NewGuid().ToString();
+            if (item.Notes == null) item.Notes = string.Empty;
             await _taskRepository.AddAsync(item);
         }
 
