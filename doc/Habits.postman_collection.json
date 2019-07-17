@@ -104,7 +104,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"TeamId\": \"eda1df41-a346-48dc-81ea-1f3288fcd58a\",\n\t\"Name\": \"Team name changed\"\n}"
+							"raw": "{\n\t\"TeamId\": \"eda1df41-a346-48dc-81ea-1f3288fcd58a\",\n\t\"Name\": \"First team\"\n}"
 						},
 						"url": {
 							"raw": "{{api_url}}/teams",
@@ -245,7 +245,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"HabitId\": \"c0825e3d-4e5a-4f34-8f2f-3481b6d4798d\",\n\t\"Name\": \"Habit Updated 2\",\n\t\"Status\": \"Open\",\n\t\"StartDate\": \"09/07/2019\",\n\t\"EndDate\": \"08/07/2019\",\n\t\"Notes\": \"Updating note\"\n}"
+							"raw": "{\n\t\"HabitId\": \"d6a79a07-8f98-40fd-b1c2-d6269b3d6918\",\n\t\"Name\": \"Lose weight\",\n\t\"Status\": \"Open\",\n\t\"StartDate\": \"07/17/2019\",\n\t\"EndDate\": \"07/31/2019\",\n\t\"Notes\": \"First habit\"\n}"
 						},
 						"url": {
 							"raw": "{{api_url}}/teams/eda1df41-a346-48dc-81ea-1f3288fcd58a/habits",
@@ -360,7 +360,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"What\": \"Some task\",\n\t\"When\": \"08/07/2019\",\n\t\"Where\": \"Somewhere\",\n\t\"Status\": \"Open\",\n\t\"Notes\": \"Something\"\n}"
+							"raw": "{\n\t\"What\": \"Eat scrambled eggs\",\n\t\"When\": \"Monday\",\n\t\"TimeTable\": \"08:00\",\n\t\"Notes\": \"Without spacy\"\n}"
 						},
 						"url": {
 							"raw": "{{api_url}}/habits/d6a79a07-8f98-40fd-b1c2-d6269b3d6918/tasks",
@@ -460,7 +460,7 @@
 	],
 	"variable": [
 		{
-			"id": "dcf99a6d-be89-4bf1-b2af-b9e6b027bba6",
+			"id": "a76da040-ca3b-4503-bc90-92cae57ced25",
 			"key": "api_url",
 			"value": "https://aid0olwi3c.execute-api.us-west-2.amazonaws.com/dev/api",
 			"type": "string"
