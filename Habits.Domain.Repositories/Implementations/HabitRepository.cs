@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
@@ -118,6 +119,8 @@ namespace Habits.Domain.Repositories
 
         private Habit GetItem(Dictionary<string, AttributeValue> item)
         {
+            //CultureInfo ci = new CultureInfo("en-US");
+
             var habit = new Habit()
             {
                 TeamId = item["TeamId"].S,

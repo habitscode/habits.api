@@ -21,7 +21,7 @@ namespace Habits.Domain.Models
                 return this.TimeTable.CompareTo(other.TimeTable);
             }
 
-            return this.When.CompareTo(other);
+            return this.When.CompareTo(other.When);
         }
     }
 }

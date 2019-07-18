@@ -8,7 +8,7 @@ using Habits.Domain.Services.Interfaces;
 
 namespace Habits.Domain.Services.Implementations
 {
-    class ScheduleService : IScheduleService
+    public class ScheduleService : IScheduleService
     {
         private readonly ITaskRepository _taskRepository;
         private readonly IHabitRepository _habitRepository;
@@ -34,7 +34,7 @@ namespace Habits.Domain.Services.Implementations
                         scheduledTasks.Add(new ScheduledTask()
                         {
                             HabitId = habitId,
-                            TaskId = task.TaskId,
+                            TaskId = Guid.NewGuid().ToString(),
                             What = task.What,
                             Notes = task.Notes,
                             When = dat.Add(task.TimeTable)
