@@ -1,12 +1,14 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="Current">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Habits.Domain.Models\Habits.Domain.Models.csproj" />
     <ProjectReference Include="..\Habits.Domain.Repositories\Habits.Domain.Repositories.csproj" />
   </ItemGroup>
-
 </Project>

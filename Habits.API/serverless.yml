@@ -1,10 +1,7 @@
 ﻿service: habits-api
-#app: your-app-name
-#tenant: your-tenant-name
 
-# You can pin your service to only deploy with a specific Serverless version
-# Check out our docs for more details
-# frameworkVersion: "=X.X.X"
+custom:
+  stage: ${opt:stage, self:provider.stage}
 
 provider:
   name: aws
@@ -27,9 +24,10 @@ functions:
       - http:
           path: api/teams
           method: get
-          # authorizer:
-          #   name: authorizer
-          #   arn: arn:aws:cognito-idp:us-west-2:640097525811:userpool/us-west-2_DyfHujw5j
+          cors: true
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:us-west-2:640097525811:userpool/us-west-2_d6v3kKOTn
   get-team:
     handler: HabitsEngine::Habits.API.TeamHandler::Get
     events:
@@ -40,18 +38,27 @@ functions:
             parameters:
               paths:
                 teamId: true
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:us-west-2:640097525811:userpool/us-west-2_d6v3kKOTn
   post-team:
     handler: HabitsEngine::Habits.API.TeamHandler::Add
     events:
       - http:
           path: api/teams
           method: post
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:us-west-2:640097525811:userpool/us-west-2_d6v3kKOTn
   put-team:
     handler: HabitsEngine::Habits.API.TeamHandler::Update
     events:
       - http:
           path: api/teams
           method: put
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:us-west-2:640097525811:userpool/us-west-2_d6v3kKOTn
   delete-team:
     handler: HabitsEngine::Habits.API.TeamHandler::Delete
     events:
@@ -62,6 +69,9 @@ functions:
             parameters:
               paths:
                 teamId: true
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:us-west-2:640097525811:userpool/us-west-2_d6v3kKOTn
   get-habits:
     handler: HabitsEngine::Habits.API.HabitHandler::GetAll
     events:
@@ -72,6 +82,9 @@ functions:
             parameters:
               paths:
                 teamId: true
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:us-west-2:640097525811:userpool/us-west-2_d6v3kKOTn
   get-habit:
     handler: HabitsEngine::Habits.API.HabitHandler::Get
     events:
@@ -83,6 +96,9 @@ functions:
               paths:
                 teamId: true
                 habitId: true
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:us-west-2:640097525811:userpool/us-west-2_d6v3kKOTn
   post-habit:
     handler: HabitsEngine::Habits.API.HabitHandler::Add
     events:
@@ -93,6 +109,9 @@ functions:
             parameters:
               paths:
                 teamId: true
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:us-west-2:640097525811:userpool/us-west-2_d6v3kKOTn
   put-habit:
     handler: HabitsEngine::Habits.API.HabitHandler::Update
     events:
@@ -103,6 +122,9 @@ functions:
             parameters:
               paths:
                 teamId: true
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:us-west-2:640097525811:userpool/us-west-2_d6v3kKOTn
   delete-habit:
     handler: HabitsEngine::Habits.API.HabitHandler::Delete
     events:
@@ -114,6 +136,9 @@ functions:
               paths:
                 teamId: true
                 habitId: true
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:us-west-2:640097525811:userpool/us-west-2_d6v3kKOTn
   get-tasks:
     handler: HabitsEngine::Habits.API.TaskHandler::GetAll
     events:
@@ -124,6 +149,9 @@ functions:
             parameters:
               paths:
                 habitId: true
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:us-west-2:640097525811:userpool/us-west-2_d6v3kKOTn
   get-task:
     handler: HabitsEngine::Habits.API.TaskHandler::Get
     events:
@@ -135,6 +163,9 @@ functions:
               paths:
                 habitId: true
                 taskId: true
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:us-west-2:640097525811:userpool/us-west-2_d6v3kKOTn
   post-task:
     handler: HabitsEngine::Habits.API.TaskHandler::Add
     events:
@@ -145,6 +176,9 @@ functions:
             parameters:
               paths:
                 habitId: true
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:us-west-2:640097525811:userpool/us-west-2_d6v3kKOTn
   put-task:
     handler: HabitsEngine::Habits.API.TaskHandler::Update
     events:
@@ -155,6 +189,9 @@ functions:
             parameters:
               paths:
                 habitId: true
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:us-west-2:640097525811:userpool/us-west-2_d6v3kKOTn
   delete-task:
     handler: HabitsEngine::Habits.API.TaskHandler::Delete
     events:
@@ -166,34 +203,10 @@ functions:
               paths:
                 habitId: true
                 taskId: true
-# resources:
-#   Resources:
-#     CognitoUserPool:
-#       Type: "AWS::Cognito::UserPool"
-#       Properties:
-#         MfaConfiguration: OFF
-#         UserPoolName: habits-user-pool
-#         UsernameAttributes:
-#           - email
-#         Policies:
-#           PasswordPolicy:
-#             MinimumLength: 6
-#     CognitoUserPoolClient:
-#       Type: "AWS::Cognito::UserPoolClient"
-#       Properties:
-#         ClientName: habits-user-pool-client
-#         GenerateSecret: False
-#         UserPoolId:
-#           Ref: CognitoUserPool
-#     ApiGatewayAuthorizer:
-#       DependsOn:
-#         - ApiGatewayRestApi
-#       Type: AWS::ApiGateway::Authorizer
-#       Properties:
-#         Name: cognito-authorizer
-#         IdentitySource: method.request.header.Authorization
-#         RestApiId:
-#           Ref: ApiGatewayRestApi
-#         Type: COGNITO_USER_POOLS
-#         ProviderARNs:
-#           - Fn::GetAtt: [CognitoUserPool, Arn]
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:us-west-2:640097525811:userpool/us-west-2_d6v3kKOTn
+
+resources:
+    - ${file(serverless/cognito-user-pool.yml)}
+    - ${file(serverless/cognito-identity-pool.yml)}

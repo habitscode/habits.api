@@ -33,6 +33,7 @@ namespace Habits.API
 
         public async Task<APIGatewayProxyResponse> GetAll(APIGatewayProxyRequest request)
         {
+
             if (!validPathParameters(request.PathParameters, out string teamId, out string error))
             {
                 return new APIGatewayProxyResponse()
