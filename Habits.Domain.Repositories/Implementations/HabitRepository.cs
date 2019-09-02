@@ -119,8 +119,6 @@ namespace Habits.Domain.Repositories
 
         private Habit GetItem(Dictionary<string, AttributeValue> item)
         {
-            //CultureInfo ci = new CultureInfo("en-US");
-
             var habit = new Habit()
             {
                 TeamId = item["TeamId"].S,
